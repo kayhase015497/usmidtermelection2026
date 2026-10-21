@@ -36,6 +36,12 @@
 - 圖文影片一律純氛圍播放（靜音、自動播放、循環、無控制列）；上傳上限 25MB，建議 H.264 MP4、720p、約 3000 Kb/s、無音軌
 - 報導連結貼上網址後自動抓標題（microlink → allorigins 備援），可手動修改
 
+## 流量統計（GTM）
+- `index.html` 內放有 Google Tag Manager（容器 `GTM-WHBTRJJ`，由 IT Bruce 提供）：`<head>` 一段 `<script>`、`<body>` 開頭一段 `<noscript>`，請保持原樣
+- **`admin.html` 不放**，避免編輯室操作被算進 PV
+- 每次進站算一次 PV；資料每 60 秒的自動更新、切換亮暗色、切換分頁都不會重複計算
+- GA4 等統計平台需加入網域 `usmidtermelection2026.chinatimes.com`；上線驗證用 GTM 預覽模式（Tag Assistant）
+
 ## 外部資源（CDN）
 D3 v7、TopoJSON、US Atlas（jsDelivr）；Google Fonts（Noto Sans TC / Noto Serif TC / Barlow Condensed）
 
