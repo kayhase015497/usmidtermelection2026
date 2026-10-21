@@ -224,14 +224,19 @@ html[data-font="c"]{
 .ue-main{
   display:grid;
   grid-template-columns:minmax(0,1fr);
-  grid-template-areas:"map" "stories" "race";
+  grid-template-areas:"map" "stories" "info" "race";
   gap:14px;padding:14px 18px 18px;
 }
 .ue-map-panel{grid-area:map;}
 .ue-race-panel{grid-area:race;}
 .ue-stories{grid-area:stories;}
+.ue-info{
+  grid-area:info;min-width:0;background:var(--c-card);border:1px solid var(--c-border);
+  border-radius:var(--r);overflow:hidden;
+}
+.ue-info img{display:block;width:100%;height:auto;}
 @media(min-width:900px){
-  .ue-main{grid-template-columns:minmax(0,1fr) 440px;grid-template-areas:"map race" "stories stories";}
+  .ue-main{grid-template-columns:minmax(0,1fr) 440px;grid-template-areas:"map race" "stories stories" "info info";}
 }
 @media(min-width:1200px){
   .ue-main{grid-template-columns:minmax(0,1fr) 480px;}
@@ -534,7 +539,7 @@ html[data-font="c"]{
   </div>
 
   <!-- Scoreboards -->
-  <div class="ue-boards" id="ue-boards">
+  <div class="ue-boards" id="ue-boards" data-anchor="boards">
     <!-- Rendered by JS -->
   </div>
 
@@ -542,7 +547,7 @@ html[data-font="c"]{
   <div class="ue-main">
 
     <!-- Map Panel -->
-    <div class="ue-map-panel">
+    <div class="ue-map-panel" data-anchor="map">
       <div class="ue-panel-head">
         <span class="ue-panel-title">各州選情地圖</span>
         <div class="ue-map-legend">
@@ -556,7 +561,7 @@ html[data-font="c"]{
     </div>
 
     <!-- Race Panel -->
-    <div class="ue-race-panel">
+    <div class="ue-race-panel" data-anchor="race">
       <div class="ue-tabs">
         <div class="ue-tab active" data-tab="senate" onclick="switchTab('senate')">參議院</div>
         <div class="ue-tab" data-tab="house" onclick="switchTab('house')">眾議院</div>
@@ -575,6 +580,12 @@ html[data-font="c"]{
 
     <!-- Stories (hidden when empty) -->
     <div class="ue-stories" id="ue-stories" hidden></div>
+
+    <!-- 資訊圖卡：美國期中選舉基本介紹 -->
+    <div class="ue-info" data-anchor="info">
+      <img src="./medias/midterm-basics.webp" width="2000" height="1126" loading="lazy"
+        alt="美國期中選舉資訊圖卡：什麼是期中選舉？選哪些席次？怎麼決定勝負？">
+    </div>
 
   </div>
 
@@ -744,12 +755,12 @@ function storyHTML(st, i) {
   }
   const links = (st.links || []).map(l => ({ url: safeUrl(l && l.url), title: ((l && l.title) || '').trim() })).filter(l => l.url);
   const linkHTML = links.length
-    ? `<div class="ue-story-links-lbl">相關報導</div><ul class="ue-story-links">${links.map(l => `<li><a href="${esc(l.url)}" target="_blank" rel="noopener noreferrer">${esc(l.title || hostOf(l.url))}</a></li>`).join('')}</ul>`
+    ? `<div class="ue-story-links-lbl">相關報導</div><ul class="ue-story-links">${links.map(l => `<li><a href="${esc(l.url)}" target="_top">${esc(l.title || hostOf(l.url))}</a></li>`).join('')}</ul>`
     : '';
   const body = (title || text || linkHTML)
     ? `<div class="ue-story-body">${title ? `<div class="ue-story-title">${esc(title)}</div>` : ''}${text ? `<div class="ue-story-text">${esc(text)}</div>` : ''}${linkHTML}</div>`
     : '';
-  return `<div class="ue-story${media ? ' has-media' : ''}${body ? ' has-body' : ''}${i % 2 ? ' flip' : ''}">${media ? `<div class="ue-story-media">${media}</div>` : ''}${body}</div>`;
+  return `<div class="ue-story${media ? ' has-media' : ''}${body ? ' has-body' : ''}${i % 2 ? ' flip' : ''}" data-anchor="s:${esc(st.id || i)}">${media ? `<div class="ue-story-media">${media}</div>` : ''}${body}</div>`;
 }
 function esc(s) {
   return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -765,6 +776,71 @@ function renderStories() {
 }
 
 /* ══════════════════════════════════════════════
+   按「上一頁」回到原本捲動位置
+═══════════════════════════════════════════════ */
+const SCROLL_KEY = 'ue-return-scroll';
+let scrollPending = null;
+try {
+  const raw = sessionStorage.getItem(SCROLL_KEY);
+  if (raw) {
+    const v = JSON.parse(raw);
+    if (Date.now() - v.t < 30 * 60 * 1000) scrollPending = v;
+    sessionStorage.removeItem(SCROLL_KEY);
+  }
+} catch (e) {}
+if (scrollPending) { try { history.scrollRestoration = 'manual'; } catch (e) {} }
+
+function captureScroll() {
+  try {
+    let best = null;
+    document.querySelectorAll('[data-anchor]').forEach(el => {
+      if (el.getClientRects().length === 0) return;
+      const r = el.getBoundingClientRect();
+      const inside = r.top <= 1 && r.bottom > 1;
+      const score = inside ? -1e6 + (r.bottom - r.top) : (r.top > 1 ? r.top : Infinity);
+      if (!best || score < best.score) best = { id: el.dataset.anchor, off: Math.round(r.top), score };
+    });
+    sessionStorage.setItem(SCROLL_KEY, JSON.stringify({
+      y: Math.round(window.scrollY), id: best && best.id, off: best ? best.off : 0, t: Date.now()
+    }));
+  } catch (e) {}
+}
+document.addEventListener('click', e => {
+  if (e.target.closest && e.target.closest('.ue-story-links a')) captureScroll();
+}, true);
+window.addEventListener('pageshow', e => {
+  if (e.persisted) { try { sessionStorage.removeItem(SCROLL_KEY); } catch (err) {} }
+});
+
+function applyRestore() {
+  if (!scrollPending) return;
+  const v = scrollPending;
+  const el = v.id ? document.querySelector('[data-anchor="' + String(v.id).replace(/"/g, '') + '"]') : null;
+  const target = el ? window.scrollY + el.getBoundingClientRect().top - v.off : v.y;
+  window.scrollTo(0, Math.max(0, target));
+}
+let restoreStarted = false;
+function startRestore() {
+  if (restoreStarted || !scrollPending) return;
+  restoreStarted = true;
+  let done = false;
+  const evs = ['wheel', 'touchstart', 'keydown', 'mousedown'];
+  const stop = () => {
+    if (done) return;
+    done = true; scrollPending = null;
+    evs.forEach(ev => window.removeEventListener(ev, stop, true));
+  };
+  evs.forEach(ev => window.addEventListener(ev, stop, { capture: true, passive: true }));
+  const again = () => { if (!done) applyRestore(); };
+  applyRestore();
+  // 圖片、影片載入後版面高度會改變，短時間內持續校正；使用者一開始捲動就停止
+  document.addEventListener('load', again, true);
+  document.addEventListener('loadedmetadata', again, true);
+  [250, 700, 1500, 3000].forEach(ms => setTimeout(again, ms));
+  setTimeout(stop, 4000);
+}
+
+/* ══════════════════════════════════════════════
    RENDER
 ═══════════════════════════════════════════════ */
 function renderAll() {
@@ -774,6 +850,7 @@ function renderAll() {
   renderMap();
   renderRaceList();
   renderStories();
+  startRestore();
 }
 
 function renderHeader() {
