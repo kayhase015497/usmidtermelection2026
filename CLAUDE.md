@@ -18,6 +18,7 @@
 ## 圖文區塊的報導連結
 - 連結用 `target="_top"` 在同一個分頁跳轉（嵌入 CMS 的 iframe 時，會讓整個 CMS 頁面跳轉，而不是在小框裡開啟）；不加 `noreferrer`，中時站內可看到來源
 - 按瀏覽器「上一頁」回來時會回到原本捲動的位置：點連結前把「最靠近畫面頂端的區塊（`data-anchor`）與偏移量」存入 sessionStorage，回來後等內容與圖片載入完再捲回去；使用者一開始捲動就停止校正；只在點連結後 30 分鐘內有效，一般重新整理不受影響
+- 每則圖文的報導連結超過 5 條（`LINK_LIMIT`）時，前台只先顯示前 5 條，其餘收在「更多報導（+N）」按鈕裡，點開展開、再點「收起報導」；展開狀態也會在「點連結後按上一頁」時一併還原。後台排序請把重要的放前面
 - 若 CMS 的 iframe 設有 `sandbox` 屬性，需包含 `allow-top-navigation` 或 `allow-top-navigation-by-user-activation`，否則 `_top` 連結會被瀏覽器擋下
 
 所有路徑皆為相對路徑，換網域或放在子路徑（`github.io/usmidtermelection2026/`）都能運作。

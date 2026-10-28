@@ -336,6 +336,14 @@ html[data-font="c"]{
 .ue-story-title{font-family:var(--ff-display);font-size:clamp(26px,3vw,32px);font-weight:900;line-height:1.35;margin-bottom:12px;}
 .ue-story-text{font-size:calc(var(--fs-base) + 4px);line-height:1.8;color:var(--c-text);white-space:pre-line;}
 .ue-story-links{list-style:none;margin-top:14px;display:flex;flex-direction:column;gap:8px;}
+.ue-story-more{
+  margin-top:12px;padding:8px 18px;font-family:inherit;font-weight:700;
+  font-size:calc(var(--fs-md) + 2px);color:var(--c-accent);background:transparent;
+  border:1px solid var(--c-accent-line);border-radius:999px;cursor:pointer;
+  transition:background .15s;
+}
+.ue-story-more:hover{background:var(--c-accent-bg);}
+.ue-story-links li[hidden]{display:none;}
 .ue-story-links-lbl{font-family:var(--ff-label);font-size:calc(var(--fs-mono) + 4px);letter-spacing:1px;color:var(--c-muted);margin-top:14px;}
 .ue-story-links-lbl + .ue-story-links{margin-top:6px;}
 .ue-story-links a{
@@ -756,6 +764,7 @@ function safeUrl(u) {
 function hostOf(u) {
   try { return new URL(u).hostname.replace(/^www\./, ''); } catch (e) { return u; }
 }
+const LINK_LIMIT = 5;
 function storyHTML(st, i) {
   const src = (st.src || '').trim();
   const title = (st.title || '').trim();
@@ -772,8 +781,9 @@ function storyHTML(st, i) {
     }
   }
   const links = (st.links || []).map(l => ({ url: safeUrl(l && l.url), title: ((l && l.title) || '').trim() })).filter(l => l.url);
+  const extra = Math.max(0, links.length - LINK_LIMIT);
   const linkHTML = links.length
-    ? `<div class="ue-story-links-lbl">相關報導</div><ul class="ue-story-links">${links.map(l => `<li><a href="${esc(l.url)}" target="_top">${esc(l.title || hostOf(l.url))}</a></li>`).join('')}</ul>`
+    ? `<div class="ue-story-links-lbl">相關報導</div><ul class="ue-story-links">${links.map((l, k) => `<li${k >= LINK_LIMIT ? ' class="ue-link-extra" hidden' : ''}><a href="${esc(l.url)}" target="_top">${esc(l.title || hostOf(l.url))}</a></li>`).join('')}</ul>${extra ? `<button type="button" class="ue-story-more" aria-expanded="false" data-more="${extra}">更多報導（+${extra}）</button>` : ''}`
     : '';
   const body = (title || text || linkHTML)
     ? `<div class="ue-story-body">${title ? `<div class="ue-story-title">${esc(title)}</div>` : ''}${text ? `<div class="ue-story-text">${esc(text)}</div>` : ''}${linkHTML}</div>`
@@ -792,6 +802,16 @@ function renderStories() {
   wrap.hidden = list.length === 0;
   wrap.innerHTML = list.map(storyHTML).join('');
 }
+
+/* 報導連結超過 5 條：「更多報導」展開／收起 */
+document.addEventListener('click', e => {
+  const btn = e.target.closest && e.target.closest('.ue-story-more');
+  if (!btn) return;
+  const open = btn.getAttribute('aria-expanded') !== 'true';
+  btn.previousElementSibling.querySelectorAll('.ue-link-extra').forEach(li => { li.hidden = !open; });
+  btn.setAttribute('aria-expanded', String(open));
+  btn.textContent = open ? '收起報導' : `更多報導（+${btn.dataset.more}）`;
+});
 
 /* ══════════════════════════════════════════════
    按「上一頁」回到原本捲動位置
@@ -818,8 +838,10 @@ function captureScroll() {
       const score = inside ? -1e6 + (r.bottom - r.top) : (r.top > 1 ? r.top : Infinity);
       if (!best || score < best.score) best = { id: el.dataset.anchor, off: Math.round(r.top), score };
     });
+    const exp = [...document.querySelectorAll('.ue-story-more[aria-expanded="true"]')]
+      .map(b => b.closest('[data-anchor]')).filter(Boolean).map(el => el.dataset.anchor);
     sessionStorage.setItem(SCROLL_KEY, JSON.stringify({
-      y: Math.round(window.scrollY), id: best && best.id, off: best ? best.off : 0, t: Date.now()
+      y: Math.round(window.scrollY), id: best && best.id, off: best ? best.off : 0, exp, t: Date.now()
     }));
   } catch (e) {}
 }
@@ -841,6 +863,10 @@ let restoreStarted = false;
 function startRestore() {
   if (restoreStarted || !scrollPending) return;
   restoreStarted = true;
+  (scrollPending.exp || []).forEach(a => {
+    const b = document.querySelector('[data-anchor="' + String(a).replace(/"/g, '') + '"] .ue-story-more');
+    if (b && b.getAttribute('aria-expanded') !== 'true') b.click();
+  });
   let done = false;
   const evs = ['wheel', 'touchstart', 'keydown', 'mousedown'];
   const stop = () => {
