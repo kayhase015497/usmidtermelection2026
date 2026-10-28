@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-10-28T12:07:31-04:00",
+    "lastUpdated": "2026-10-28T12:08:36-04:00",
     "reporting": "0918 測試  已開出 52% 選區 ",
     "note": "測試中",
     "source": "美聯社、各州選務委員會",
@@ -398,18 +398,13 @@
       "title": "眾議院決戰",
       "text": "435席全面爭奪｜川普能否守住眾院控制權？",
       "src": "medias/Slo3RKCaT88saEDN-muzdc1ss.mp4",
-      "links": [
-        {
-          "url": "https://www.chinatimes.com/realtimenews/20261009003162-260408?chdtv",
-          "title": "民主黨來勢洶洶有望扭轉眾院 但共和黨手上還有這優勢"
-        }
-      ],
+      "links": [],
       "page": "p2"
     },
     {
       "id": "s-mvc425fc",
       "title": "參議院關鍵戰",
-      "text": "參院控制權決戰｜川普關鍵州保衛戰",
+      "text": "參院控制權決戰｜川普關鍵州保衛戰\n435席全面爭奪｜川普能否守住眾院控制權？",
       "src": "medias/uO4pd-AJtK6sq5Up-mvc4m57u.mp4",
       "links": [
         {
