@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-10-28T05:04:48-04:00",
+    "lastUpdated": "2026-10-28T05:05:03-04:00",
     "reporting": "0918 測試  已開出 52% 選區 ",
     "note": "測試中",
     "source": "美聯社、各州選務委員會"
@@ -374,7 +374,7 @@
     {
       "id": "s-muttkbn7",
       "title": "選舉全解析",
-      "text": "川普期中考全貌｜兩黨目標與對台灣、兩岸影響一次看懂",
+      "text": "川普期中考全貌｜兩黨目標與對台影響一次看懂",
       "src": "medias/KcnoxIK131N0rzYj-muttpkpr.mp4",
       "links": [
         {
@@ -397,10 +397,6 @@
         {
           "url": "https://www.chinatimes.com/realtimenews/20261006002592-260410?chdtv",
           "title": "「鐵票倉」瓦解！川普支持率黏谷底 共和黨恐慘敗"
-        },
-        {
-          "url": "https://www.chinatimes.com/realtimenews/20261009003162-260408?chdtv",
-          "title": "民主黨來勢洶洶有望扭轉眾院 但共和黨手上還有這優勢"
         }
       ],
       "page": "p2"
@@ -418,10 +414,6 @@
         {
           "url": "https://www.chinatimes.com/realtimenews/20261012004240-260408?chdtv",
           "title": "紅潮難掀「藍色海嘯」？川普不受歡迎 但民主黨也難狂勝6大原因"
-        },
-        {
-          "url": "https://www.chinatimes.com/realtimenews/20261020000026-260408?chdtv",
-          "title": "參議院爭奪戰白熱化 9大關鍵選區成勝負命脈"
         }
       ]
     },
@@ -434,10 +426,6 @@
         {
           "url": "https://www.chinatimes.com/realtimenews/20261016004474-260408?chdtv",
           "title": "美期中選舉大玩「俄羅斯輪盤」 川普10月驚奇竟是擁抱普丁"
-        },
-        {
-          "url": "https://www.chinatimes.com/realtimenews/20261013004080-260408?chdtv",
-          "title": "川普說「在乎美國人」誰信？ 過半民眾認為他更重視自身利益"
         }
       ]
     },
@@ -448,20 +436,16 @@
       "src": "medias/uejBCcU5syO9PigH-mvc6mjzy.mp4",
       "links": [
         {
-          "url": "https://www.chinatimes.com/realtimenews/20261017001756-260408?chdtv",
-          "title": "美中談出和平了？台海開戰預測延後 北京真正盤算曝光"
+          "url": "https://www.chinatimes.com/realtimenews/20261020003937-260408?chdtv",
+          "title": "看衰川普 民主黨期中選舉期望太膨脹？！"
         },
         {
-          "url": "https://www.chinatimes.com/realtimenews/20261021004514-260408?chdtv",
-          "title": "美國經濟好不好？川普喊「黃金時代」 范斯謹慎安撫選民"
+          "url": "https://www.chinatimes.com/realtimenews/20261016001730-260408?chdtv",
+          "title": "金穹防禦計畫和黃金艦隊恐沒戲 川普近49兆國防大夢命懸一線"
         },
         {
-          "url": "https://www.chinatimes.com/realtimenews/20261012003322-260408?chdtv",
-          "title": "美期中選舉攻守易勢初探 民主黨盼翻轉「川普地盤」"
-        },
-        {
-          "url": "https://www.chinatimes.com/realtimenews/20261005004175-260408?chdtv",
-          "title": "攻勢將更猛！美期中選舉後 川普恐成史上最不可預測的「跛腳鴨」"
+          "url": "https://www.chinatimes.com/realtimenews/20260918001669-260408?chdtv",
+          "title": "民調支持率36％川普慘被消失！共和黨期中選情告急祭緊急手段"
         }
       ]
     }
