@@ -343,6 +343,9 @@ details.panel pre{
 .mframe iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .mempty{padding:22px 14px;text-align:center;color:#9aa6c4;font-size:14px;font-weight:700;line-height:1.6}
 .lkrow{border:3px solid var(--ink);border-radius:14px;padding:12px;margin-bottom:12px;background:#f6f8fd;display:grid;gap:10px}
+.cf{border:3px solid var(--ink);border-radius:14px;padding:10px;margin:10px 0;background:#fffbe6}
+.cft{font-weight:900;margin-bottom:8px;font-size:15px}
+.cf .opt{white-space:normal;font-size:14px;line-height:1.35;padding:6px 8px;min-height:60px}
 .lkbar{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap}
 .lkord{display:flex;align-items:center;gap:6px;margin-right:auto}
 .lkord .badge{min-width:36px;padding:4px 6px;font-size:14px}
@@ -469,7 +472,7 @@ const TABS=[
 ];
 
 /* ═══════════ STATE ═══════════ */
-let data=null,githubSHA=null,dirty=false,curTab='home';
+let data=null,githubSHA=null,serverBase=null,dirty=false,curTab='home';
 let raceFilter='all',openRace=-1,curState=null,addOffice='Senate';
 
 const $=id=>document.getElementById(id);
@@ -539,27 +542,44 @@ async function fetchFileSHA(token){
   return (await res.json()).sha;
 }
 
-function normalize(){
-  data.meta=data.meta||{};
+function normalizeObj(d){
+  d.meta=d.meta||{};
   Object.keys(CH).forEach(ch=>{
-    const d=data[ch]=data[ch]||{};
-    d.total=d.total||CH[ch].total;d.threshold=d.threshold||CH[ch].thr;
+    const x=d[ch]=d[ch]||{};
+    x.total=x.total||CH[ch].total;x.threshold=x.threshold||CH[ch].thr;
     PARTIES.forEach(([k,l])=>{
-      d[k]=d[k]||{label:l};
-      d[k].seats=parseInt(d[k].seats)||0;d[k].net=parseInt(d[k].net)||0;
+      x[k]=x[k]||{label:l};
+      x[k].seats=parseInt(x[k].seats)||0;x[k].net=parseInt(x[k].net)||0;
     });
   });
-  data.states=data.states||{};
+  d.states=d.states||{};
   STATE_ABBRS.forEach(a=>{
-    if(!data.states[a])data.states[a]={winner:null,called:false,margin:null,office:'Senate'};
+    if(!d.states[a])d.states[a]={winner:null,called:false,margin:null,office:'Senate'};
   });
-  data.stories=Array.isArray(data.stories)?data.stories:[];
-  data.stories.forEach(st=>{st.title=st.title||'';st.text=st.text||'';st.src=st.src||'';st.links=Array.isArray(st.links)?st.links.map(l=>({url:(l&&l.url)||'',title:(l&&l.title)||'',_lastUrl:(l&&l.url)||''})):[];st.id=st.id||('s-'+Math.random().toString(36).slice(2,8))});
-  data.keyRaces=data.keyRaces||[];
-  data.keyRaces.forEach(r=>{
+  d.stories=Array.isArray(d.stories)?d.stories:[];
+  d.stories.forEach((st,i)=>{st.title=st.title||'';st.text=st.text||'';st.src=st.src||'';st.links=Array.isArray(st.links)?st.links.map(l=>({url:(l&&l.url)||'',title:(l&&l.title)||'',_lastUrl:(l&&l.url)||''})):[];st.id=st.id||('s-legacy-'+i)});
+  d.keyRaces=d.keyRaces||[];
+  d.keyRaces.forEach(r=>{
     r.dem=r.dem||{name:'',pct:0,votes:0};r.rep=r.rep||{name:'',pct:0,votes:0};
     r.winner=r.winner||null;
   });
+  return d;
+}
+function normalize(){normalizeObj(data)}
+function decodeContent(meta){
+  const bytes=Uint8Array.from(atob(meta.content.replace(/\n/g,'')),c=>c.charCodeAt(0));
+  return JSON.parse(new TextDecoder().decode(bytes));
+}
+async function fetchRemote(token){
+  const res=await fetch(API_URL+'?ref=main&_='+Date.now(),{
+    headers:{Accept:'application/vnd.github.v3+json',Authorization:`token ${token}`},cache:'no-store'
+  });
+  if(!res.ok){
+    const b=await res.json().catch(()=>({}));
+    throw new Error(`取得最新資料失敗 HTTP ${res.status} ${b.message||''}`);
+  }
+  const meta=await res.json();
+  return {sha:meta.sha,json:decodeContent(meta)};
 }
 
 async function loadFromGitHub(force){
@@ -573,14 +593,14 @@ async function loadFromGitHub(force){
     if(!res.ok)throw new Error('HTTP '+res.status);
     const meta=await res.json();
     githubSHA=meta.sha;
-    const bytes=Uint8Array.from(atob(meta.content.replace(/\n/g,'')),c=>c.charCodeAt(0));
-    data=JSON.parse(new TextDecoder().decode(bytes));
+    const raw=decodeContent(meta);
+    data=JSON.parse(JSON.stringify(raw));serverBase=canon(raw);
     toast('已載入最新資料','ok');
   }catch(e){
     try{
       const res=await fetch(RAW_URL+'?_='+Date.now());
       if(!res.ok)throw new Error('HTTP '+res.status);
-      data=await res.json();githubSHA=null;
+      const raw=await res.json();data=JSON.parse(JSON.stringify(raw));serverBase=canon(raw);githubSHA=null;
       toast('已載入資料（目前是唯讀）','info');
     }catch(e2){
       $('hud-sub').textContent='載入失敗';
@@ -605,21 +625,23 @@ function etISO(d=new Date()){
 }
 
 function seatSum(d){return PARTIES.reduce((s,[k])=>s+(d[k].seats||0),0)}
-function ctrlOf(ch){
-  const d=data[ch];
-  return d.dem.seats>=d.threshold?'D':d.rep.seats>=d.threshold?'R':'?';
-}
-function buildJSON(forPush){
-  const out=JSON.parse(JSON.stringify(data));
+function ctrlOfObj(d){return d.dem.seats>=d.threshold?'D':d.rep.seats>=d.threshold?'R':'?'}
+function ctrlOf(ch){return ctrlOfObj(data[ch])}
+function finalize(out){
   Object.keys(CH).forEach(ch=>{
     const d=out[ch];
     d.uncalled=Math.max(0,d.total-seatSum(d));
-    d.currentControl=ctrlOf(ch);
+    d.currentControl=ctrlOfObj(d);
   });
   out.stories=(out.stories||[]).map(x=>{
     x.links=(x.links||[]).map(l=>({url:normUrl(l.url),title:(l.title||'').trim()})).filter(l=>/^https?:\/\/[^\s]+\.[^\s]+/i.test(l.url));
     return x;
   }).filter(x=>x.title.trim()||x.text.trim()||x.src.trim()||x.links.length);
+  return out;
+}
+function canon(raw){return finalize(normalizeObj(JSON.parse(JSON.stringify(raw))))}
+function buildJSON(forPush){
+  const out=finalize(JSON.parse(JSON.stringify(data)));
   if(forPush)out.meta.lastUpdated=etISO();
   return out;
 }
@@ -633,43 +655,208 @@ function validate(){
   return true;
 }
 
+/* ═══════════ 多人同時編輯：三方合併 ═══════════ */
+const stable=v=>JSON.stringify(v,(k,x)=>x&&typeof x==='object'&&!Array.isArray(x)?Object.keys(x).sort().reduce((o,kk)=>(o[kk]=x[kk],o),{}):x);
+const same=(a,b)=>a===b||stable(a)===stable(b);
+const isObj=v=>!!v&&typeof v==='object'&&!Array.isArray(v);
+const DERIVED=new Set(['meta/lastUpdated','senate/uncalled','senate/currentControl','house/uncalled','house/currentControl']);
+function keyField(...arrs){
+  const all=arrs.flatMap(a=>a||[]);
+  if(!all.length)return 'id';
+  if(all.every(x=>isObj(x)&&x.id!=null))return 'id';
+  if(all.every(x=>isObj(x)&&x.url!=null))return 'url';
+  return null;
+}
+/* b=雙方一開始的共同版本、l=我的、r=別人剛存的；回傳合併結果 */
+function merge3(b,l,r,path,ctx){
+  if(same(l,r))return l;
+  if(same(l,b))return r;
+  if(same(r,b))return l;
+  if(isObj(l)&&isObj(r)){
+    const bb=isObj(b)?b:{},o={};
+    new Set([...Object.keys(bb),...Object.keys(l),...Object.keys(r)]).forEach(k=>{
+      const v=merge3(bb[k],l[k],r[k],path.concat(k),ctx);
+      if(v!==undefined)o[k]=v;
+    });
+    return o;
+  }
+  if(Array.isArray(l)&&Array.isArray(r)){
+    const kf=keyField(b,l,r);
+    if(kf)return mergeList(Array.isArray(b)?b:[],l,r,path,kf,ctx);
+  }
+  return ctx.conflict(path,l,r);
+}
+function mergeList(B0,L0,R0,path,kf,ctx){
+  const m=a=>new Map(a.map(x=>[String(x[kf]),x]));
+  const B=m(B0),L=m(L0),R=m(R0),out=new Map();
+  new Set([...B.keys(),...L.keys(),...R.keys()]).forEach(id=>{
+    const v=merge3(B.get(id),L.get(id),R.get(id),path.concat(kf+':'+id),ctx);
+    if(v!==undefined)out.set(id,v);
+  });
+  const sq=a=>a.map(x=>String(x[kf]));
+  const cB=sq(B0).filter(i=>L.has(i)&&R.has(i)),
+        cL=sq(L0).filter(i=>B.has(i)&&R.has(i)),
+        cR=sq(R0).filter(i=>B.has(i)&&L.has(i));
+  let common;
+  if(same(cL,cR))common=cL;
+  else if(same(cL,cB))common=cR;
+  else if(same(cR,cB))common=cL;
+  else common=ctx.conflict(path.concat('__order'),cL,cR);
+  const order=[...common];
+  const place=a=>a.forEach(i=>{if(out.has(i)&&!order.includes(i))order.push(i)});
+  place(sq(R0));place(sq(L0));place(sq(B0));
+  return order.filter(i=>out.has(i)).map(i=>out.get(i));
+}
+
+const FIELD_ZH={title:'標題',text:'文字說明',src:'影片／圖片',winner:'誰贏',called:'是否確定',margin:'領先差距',noRace:'本屆無選舉',pct:'得票率',reporting:'開票進度',competitive:'激烈戰區',seats:'席次',net:'增減',url:'網址',stateName:'州名',office:'院別',votes:'票數',name:'名稱'};
+const PARTY_ZH={dem:'民主黨',rep:'共和黨',ind:'獨立／其他'};
+const META_ZH={reporting:'開票進度文字',source:'資料來源',note:'頁面底部備註'};
+function labelFor(path,snaps){
+  const P=path.map(String),f=k=>FIELD_ZH[k]||k||'';
+  const find=(list,id)=>{for(const sn of snaps){const x=((sn&&sn[list])||[]).find(i=>String(i.id)===id);if(x)return x}return null};
+  const cut=(t,n)=>t.length>n?t.slice(0,n)+'…':t;
+  if(P[0]==='states')return `${STATE_NAMES[P[1]]||P[1]}｜${f(P[2])}`;
+  if(CH[P[0]])return `${CH[P[0]].label}｜${PARTY_ZH[P[1]]||P[1]}${P[2]?' '+f(P[2]):''}`;
+  if(P[0]==='meta')return `頁面文字｜${META_ZH[P[1]]||P[1]}`;
+  if(P[0]==='stories'){
+    const id=(P[1]||'').replace(/^id:/,''),st=find('stories',id),nm=(st&&st.title)?`「${cut(st.title,14)}」`:`#${id}`,rest=P.slice(2);
+    if(!P[1]||P[1]==='__order')return '圖文｜排列順序';
+    if(!rest.length)return `圖文 ${nm}｜整則`;
+    if(rest[0]==='__order')return `圖文 ${nm}｜內容順序`;
+    if(rest[0]==='links'){
+      if(rest.length===1)return `圖文 ${nm}｜報導連結`;
+      if(rest[1]==='__order')return `圖文 ${nm}｜報導連結順序`;
+      const url=rest[1].replace(/^url:/,''),lk=((st&&st.links)||[]).find(x=>x.url===url),t=(lk&&lk.title)||url;
+      return `圖文 ${nm}｜報導連結「${cut(t,16)}」${rest[2]?' '+f(rest[2]):''}`;
+    }
+    return `圖文 ${nm}｜${f(rest[0])}`;
+  }
+  if(P[0]==='keyRaces'){
+    if(!P[1]||P[1]==='__order')return '戰區｜排列順序';
+    const id=P[1].replace(/^id:/,''),r=find('keyRaces',id),nm=r?`${r.stateName}${OFFICE_LABEL[r.office]||''}`:id,rest=P.slice(2);
+    if(!rest.length)return `戰區 ${nm}｜整筆`;
+    if(PARTY_ZH[rest[0]])return `戰區 ${nm}｜${PARTY_ZH[rest[0]]}${f(rest[1])}`;
+    return `戰區 ${nm}｜${f(rest[0])}`;
+  }
+  return P.join(' › ');
+}
+function fmtVal(path,v){
+  const last=String(path[path.length-1]);
+  if(v===undefined)return '（已刪除）';
+  if(last==='__order')return `順序（共 ${(v||[]).length} 項）`;
+  if(v===null)return last==='winner'?'未定':'（空）';
+  if(typeof v==='boolean')return v?'是':'否';
+  if(last==='winner')return {D:'民主黨',R:'共和黨',I:'獨立'}[v]||String(v);
+  if(typeof v==='number')return String(v);
+  if(typeof v==='string'){const t=v.replace(/\s+/g,' ').trim();return t?'「'+(t.length>24?t.slice(0,24)+'…':t)+'」':'（空）'}
+  return '（整筆內容）';
+}
+let conflictResolve=null,cfState=null;
+function askConflicts(list,snaps){
+  return new Promise(resolve=>{
+    cfState={list:list.map(c=>({...c,label:labelFor(c.path,snaps),lv:fmtVal(c.path,c.l),rv:fmtVal(c.path,c.r)})),choice:{}};
+    cfState.list.forEach(c=>{cfState.choice[c.key]='remote'});
+    conflictResolve=resolve;renderConflicts();
+  });
+}
+function renderConflicts(){
+  const t=$('sheet').scrollTop,{list,choice}=cfState;
+  openSheet(`
+  <div class="sh-h"><div class="sh-t"><b>⚠️ 別人剛存了更新</b></div><button class="gbtn sm sq" onclick="closeSheet()">✕</button></div>
+  <p class="hint" style="margin:0 0 4px">你和另一位同事改到了<b>同一個地方</b>，請選擇要保留哪一個。其他沒有衝突的修改，已經自動合併，不會被蓋掉。</p>
+  ${list.map((c,i)=>`
+  <div class="cf"><div class="cft">${esc(c.label)}</div>
+    <div class="choice c2">
+      <button type="button" class="opt N${choice[c.key]==='remote'?' sel':''}" onclick="pickConflict(${i},'remote')">${choice[c.key]==='remote'?'✓ ':''}別人的<br>${esc(c.rv)}</button>
+      <button type="button" class="opt D${choice[c.key]==='local'?' sel':''}" onclick="pickConflict(${i},'local')">${choice[c.key]==='local'?'✓ ':''}我的<br>${esc(c.lv)}</button>
+    </div>
+  </div>`).join('')}
+  ${list.length>1?`<div class="choice c2" style="margin-top:12px"><button class="gbtn sm" onclick="pickAllConflicts('remote')">全部用別人的</button><button class="gbtn sm" onclick="pickAllConflicts('local')">全部用我的</button></div>`:''}
+  <div class="sh-nav" style="grid-template-columns:1fr 1.6fr"><button class="gbtn" onclick="closeSheet()">取消</button><button class="gbtn green" onclick="confirmConflicts()">確認並存檔</button></div>`);
+  $('sheet').scrollTop=t;
+}
+function pickConflict(i,side){cfState.choice[cfState.list[i].key]=side;renderConflicts()}
+function pickAllConflicts(side){cfState.list.forEach(c=>{cfState.choice[c.key]=side});renderConflicts()}
+function confirmConflicts(){
+  const r=conflictResolve,ch=cfState.choice;conflictResolve=null;closeSheet();
+  if(r)r(ch);
+}
+async function mergeWithRemote(base,local,remote){
+  const found=[],key=p=>p.join('\u0001');
+  merge3(base,local,remote,[],{conflict:(path,l,r)=>{
+    if(DERIVED.has(path.join('/')))return l;
+    found.push({key:key(path),path,l,r});return r;
+  }});
+  let choices={};
+  if(found.length){
+    choices=await askConflicts(found,[base,local,remote]);
+    if(!choices)return null;
+  }
+  const merged=merge3(base,local,remote,[],{conflict:(path,l,r)=>{
+    if(DERIVED.has(path.join('/')))return l;
+    return choices[key(path)]==='local'?l:r;
+  }});
+  return {merged:finalize(merged),conflicts:found.length};
+}
+
 async function pushToGitHub(){
   const token=getToken();
   if(!data){toast('資料還沒載入完成','err');return}
   if(!token){toast('請先登入 GitHub 才能存檔','err');showAuth();return}
   if(!validate())return;
   const btn=$('push');btn.disabled=true;btn.innerHTML='<span class="spin">⟳</span> 上傳中…';
+  const reset=()=>{btn.disabled=false;btn.innerHTML='⬆ 存檔上線'};
+  let mergedFromOthers=false;
   try{
-    if(!githubSHA)githubSHA=await fetchFileSHA(token);
-    const payload=buildJSON(true);
-    const now=new Date().toLocaleString('zh-TW',{timeZone:'America/New_York',hour12:false}).replace(',','');
-    const res=await fetch(API_URL,{
-      method:'PUT',
-      headers:{Authorization:`token ${token}`,'Content-Type':'application/json',Accept:'application/vnd.github.v3+json'},
-      body:JSON.stringify({
-        message:`chore: 更新選舉開票結果 ${now} ET`,
-        content:toBase64(JSON.stringify(payload,null,2)),
-        sha:githubSHA,branch:'main'
-      })
-    });
-    if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e.message||'HTTP '+res.status)}
-    githubSHA=(await res.json()).content.sha;
-    data.meta.lastUpdated=payload.meta.lastUpdated;
-    dirty=false;renderHUD();renderHome();
-    toast('✓ 已上線！前台約 2 分鐘後更新','ok');
-    btn.classList.add('done');btn.innerHTML='🎉 已上線！';vib();
-    setTimeout(()=>{btn.classList.remove('done');btn.innerHTML='⬆ 存檔上線'},2200);
-    btn.disabled=false;return;
+    for(let attempt=0;attempt<4;attempt++){
+      const remote=await fetchRemote(token);
+      const remoteCanon=canon(remote.json);
+      let payload=buildJSON(true);
+      if(!same(remoteCanon,serverBase)){
+        const res=await mergeWithRemote(serverBase,payload,remoteCanon);
+        if(!res){toast('已取消存檔，你的修改還在，確認後可以再按「存檔上線」','info');reset();return}
+        for(const ch of Object.keys(CH)){
+          const d=res.merged[ch];
+          if(seatSum(d)>d.total){
+            toast(`合併後${CH[ch].label}席次加總超過 ${d.total}，沒有存檔。請按 ⚙ 重新載入最新資料後再修改`,'err');reset();return;
+          }
+        }
+        payload=res.merged;mergedFromOthers=true;
+      }
+      const now=new Date().toLocaleString('zh-TW',{timeZone:'America/New_York',hour12:false}).replace(',','');
+      const res2=await fetch(API_URL,{
+        method:'PUT',
+        headers:{Authorization:`token ${token}`,'Content-Type':'application/json',Accept:'application/vnd.github.v3+json'},
+        body:JSON.stringify({
+          message:`chore: 更新選舉開票結果 ${now} ET`,
+          content:toBase64(JSON.stringify(payload,null,2)),
+          sha:remote.sha,branch:'main'
+        })
+      });
+      if(res2.ok){
+        githubSHA=(await res2.json()).content.sha;
+        serverBase=canon(payload);
+        if(mergedFromOthers){data=normalizeObj(JSON.parse(JSON.stringify(payload)));renderAll()}
+        else{data.meta.lastUpdated=payload.meta.lastUpdated;renderHome()}
+        dirty=false;renderHUD();
+        toast(mergedFromOthers?'✓ 已上線！並自動合併了其他人剛剛的更新':'✓ 已上線！前台約 2 分鐘後更新','ok');
+        btn.classList.add('done');btn.innerHTML='🎉 已上線！';vib();
+        setTimeout(()=>{btn.classList.remove('done');btn.innerHTML='⬆ 存檔上線'},2200);
+        btn.disabled=false;return;
+      }
+      const e=await res2.json().catch(()=>({})),msg=e.message||('HTTP '+res2.status);
+      if(res2.status===409||res2.status===422||/does not match|conflict/i.test(msg))continue;
+      throw new Error(msg);
+    }
+    toast('同一時間有太多人在存檔，請等幾秒再按一次','err');
   }catch(e){
-    githubSHA=null;
     const m=e.message||'';
-    if(/does not match|conflict/i.test(m))toast('版本衝突（可能有人同時更新），請再按一次存檔','err');
-    else if(/404|Not Found/.test(m))toast('存檔失敗：Token 缺少 repo 權限，請到 ⚙ 做連線診斷','err');
+    if(/404|Not Found/.test(m))toast('存檔失敗：Token 缺少 repo 權限，請到 ⚙ 做連線診斷','err');
     else if(/401|Bad credentials/.test(m))toast('存檔失敗：Token 無效或過期，請重新登入','err');
     else toast('存檔失敗：'+m,'err');
     console.error('[push]',e);
   }
-  btn.disabled=false;btn.innerHTML='⬆ 存檔上線';
+  reset();
 }
 
 /* ═══════════ HUD / NAV ═══════════ */
@@ -694,7 +881,10 @@ function goTab(id){
 
 /* ═══════════ SHEET ═══════════ */
 function openSheet(html){$('sheet').innerHTML=html;$('sheet-ov').classList.add('show');document.body.classList.add('lock')}
-function closeSheet(){$('sheet-ov').classList.remove('show');document.body.classList.remove('lock');holdEnd()}
+function closeSheet(){
+  $('sheet-ov').classList.remove('show');document.body.classList.remove('lock');holdEnd();
+  if(conflictResolve){const r=conflictResolve;conflictResolve=null;r(null)}
+}
 function openMenu(){
   openSheet(`
   <div class="sh-h"><div class="sh-t"><b>⚙ 工具箱</b></div><button class="gbtn sm sq" onclick="closeSheet()">✕</button></div>
