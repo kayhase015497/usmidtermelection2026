@@ -1,9 +1,10 @@
 {
   "meta": {
-    "lastUpdated": "2026-10-28T05:13:10-04:00",
+    "lastUpdated": "2026-10-28T12:07:31-04:00",
     "reporting": "0918 測試  已開出 52% 選區 ",
     "note": "測試中",
-    "source": "美聯社、各州選務委員會"
+    "source": "美聯社、各州選務委員會",
+    "showLive": false
   },
   "senate": {
     "dem": {
@@ -374,7 +375,7 @@
     {
       "id": "s-muttkbn7",
       "title": "選舉全解析",
-      "text": "川普期中考全貌｜兩黨目標與對全球影響一次看懂",
+      "text": "選後解讀｜川普政策延續、中美關係與台灣安全衝擊",
       "src": "medias/KcnoxIK131N0rzYj-muttpkpr.mp4",
       "links": [
         {
@@ -384,6 +385,10 @@
         {
           "url": "https://www.chinatimes.com/realtimenews/20261005000010-260410?chdtv",
           "title": "川普上談判桌大玩戰略模糊 美國對台軍售會如何發展？"
+        },
+        {
+          "url": "https://www.chinatimes.com/realtimenews/20261017001756-260408?chdtv",
+          "title": ""
         }
       ],
       "page": "p1"
@@ -394,10 +399,6 @@
       "text": "435席全面爭奪｜川普能否守住眾院控制權？",
       "src": "medias/Slo3RKCaT88saEDN-muzdc1ss.mp4",
       "links": [
-        {
-          "url": "https://www.chinatimes.com/realtimenews/20261006002592-260410?chdtv",
-          "title": "「鐵票倉」瓦解！川普支持率黏谷底 共和黨恐慘敗"
-        },
         {
           "url": "https://www.chinatimes.com/realtimenews/20261009003162-260408?chdtv",
           "title": "民主黨來勢洶洶有望扭轉眾院 但共和黨手上還有這優勢"
@@ -426,6 +427,10 @@
         {
           "url": "https://www.chinatimes.com/realtimenews/20261023001940-260408?chdtv",
           "title": "紅州選情告急 ！川普南卡造勢曝裂痕 川粉大學生：可能改投民主黨"
+        },
+        {
+          "url": "https://www.chinatimes.com/realtimenews/20261009003162-260408?chdtv",
+          "title": "民主黨來勢洶洶有望扭轉眾院 但共和黨手上還有這優勢"
         }
       ]
     },
@@ -446,13 +451,17 @@
         {
           "url": "https://www.chinatimes.com/realtimenews/20261013004080-260408?chdtv",
           "title": "川普說「在乎美國人」誰信？ 過半民眾認為他更重視自身利益"
+        },
+        {
+          "url": "https://www.chinatimes.com/realtimenews/20261006002592-260410?chdtv",
+          "title": "《國際政治》「鐵票倉」瓦解！川普支持率黏谷底 共和黨恐慘敗 - 財經"
         }
       ]
     },
     {
       "id": "s-mvc6ckcw",
       "title": "深度分析",
-      "text": "選後解讀｜川普政策延續、中美關係與台灣安全衝擊",
+      "text": "川普期中考全貌｜兩黨目標與對全球影響一次看懂",
       "src": "medias/uejBCcU5syO9PigH-mvc6mjzy.mp4",
       "links": [
         {
@@ -462,10 +471,6 @@
         {
           "url": "https://www.chinatimes.com/realtimenews/20261016001730-260408?chdtv",
           "title": "金穹防禦計畫和黃金艦隊恐沒戲 川普近49兆國防大夢命懸一線"
-        },
-        {
-          "url": "https://www.chinatimes.com/realtimenews/20261017001756-260408?chdtv",
-          "title": "美中談出和平了？台海開戰預測延後 北京真正盤算曝光"
         },
         {
           "url": "https://www.chinatimes.com/realtimenews/20261021004514-260408?chdtv",
