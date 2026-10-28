@@ -544,6 +544,7 @@ async function fetchFileSHA(token){
 
 function normalizeObj(d){
   d.meta=d.meta||{};
+  d.meta.showLive=d.meta.showLive===true;
   Object.keys(CH).forEach(ch=>{
     const x=d[ch]=d[ch]||{};
     x.total=x.total||CH[ch].total;x.threshold=x.threshold||CH[ch].thr;
@@ -710,7 +711,7 @@ function mergeList(B0,L0,R0,path,kf,ctx){
 
 const FIELD_ZH={title:'標題',text:'文字說明',src:'影片／圖片',winner:'誰贏',called:'是否確定',margin:'領先差距',noRace:'本屆無選舉',pct:'得票率',reporting:'開票進度',competitive:'激烈戰區',seats:'席次',net:'增減',url:'網址',stateName:'州名',office:'院別',votes:'票數',name:'名稱'};
 const PARTY_ZH={dem:'民主黨',rep:'共和黨',ind:'獨立／其他'};
-const META_ZH={reporting:'開票進度文字',source:'資料來源',note:'頁面底部備註'};
+const META_ZH={reporting:'開票進度文字',source:'資料來源',note:'頁面底部備註',showLive:'顯示即時開票區塊'};
 function labelFor(path,snaps){
   const P=path.map(String),f=k=>FIELD_ZH[k]||k||'';
   const find=(list,id)=>{for(const sn of snaps){const x=((sn&&sn[list])||[]).find(i=>String(i.id)===id);if(x)return x}return null};
@@ -953,6 +954,13 @@ function renderHome(){
   const pct=pctM?clamp(+pctM[1],0,100):0;
   $('v-home').innerHTML=`
   <div class="vhead"><h2>📊 總覽</h2><p>點下方卡片可進入各院編輯</p></div>
+  <div class="panel" style="${m.showLive?'':'background:#fff7e0'}">
+    <h3>🔴 即時開票區塊</h3>
+    <div class="switch" style="margin-top:0"><span>讓讀者看到即時開票<br><small style="font-weight:700;color:var(--ink2)">（計分板、地圖、戰區列表）</small></span><button type="button" class="sw${m.showLive?' on':''}" onclick="toggleLive()" aria-label="切換"></button></div>
+    <p class="hint">目前：<b>${m.showLive?'已開放，讀者看得到':'隱藏中'}</b>${m.showLive?'':'，前台只顯示「標題 → 資訊圖 → 圖文內容」'}。<br>開票當天打開開關並按「⬆ 存檔上線」，約 1～2 分鐘後讀者就會看到。</p>
+    <button class="gbtn sm" style="margin-top:8px" onclick="window.open(FRONT_URL+'?live=1','_blank')">👀 預覽即時開票畫面（只有你看得到）</button>
+    <p class="hint">訓練或測試時，在前台網址後面加 <b>?live=1</b> 也能看到。</p>
+  </div>
   ${Object.keys(CH).map(ch=>`
   <button class="panel hboard" onclick="goTab('${ch}')">
     <div class="hb-t"><span>${CH[ch].ico} ${CH[ch].label}</span><span id="hc-${ch}"></span></div>
@@ -990,6 +998,7 @@ function renderHome(){
   Object.keys(CH).forEach(paintChamber);
 }
 function setMeta(k,v){data.meta[k]=v;markDirty()}
+function toggleLive(){data.meta.showLive=!data.meta.showLive;markDirty();vib();renderHome()}
 function setReportingPct(v){
   v=clamp(parseInt(v)||0,0,100);
   $('rep-slider').style.setProperty('--p',v+'%');$('rep-val').textContent=v+'%';

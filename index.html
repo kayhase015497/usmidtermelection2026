@@ -242,6 +242,11 @@ html[data-font="c"]{
   border-radius:var(--r);overflow:hidden;
 }
 .ue-info img{display:block;width:100%;height:auto;}
+
+/* 開票前：隱藏整個即時開票介面，只留 標題 → 資訊圖 → 內容區塊（後台「顯示即時開票區塊」開啟後恢復；網址加 ?live=1 可預覽） */
+.ue-prelive .ue-head,.ue-prelive .ue-boards,.ue-prelive .ue-map-panel,
+.ue-prelive .ue-race-panel,.ue-prelive .ue-foot{display:none;}
+.ue-prelive .ue-main{grid-template-columns:minmax(0,1fr);grid-template-areas:"info" "stories";}
 @media(min-width:900px){
   .ue-main{grid-template-columns:minmax(0,1fr) 440px;grid-template-areas:"map race" "stories stories" "info info";}
 }
@@ -530,7 +535,7 @@ html[data-font="c"]{
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WHBTRJJ"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
-<div class="ue-wrap" id="ue-root">
+<div class="ue-wrap ue-prelive" id="ue-root">
 
   <!-- Hero：專題大標 -->
   <div class="ue-hero">
@@ -856,12 +861,22 @@ function startRestore() {
 /* ══════════════════════════════════════════════
    RENDER
 ═══════════════════════════════════════════════ */
+function isLive() {
+  const q = new URLSearchParams(location.search).get('live');
+  if (q === '1') return true;
+  if (q === '0') return false;
+  return !!(electionData && electionData.meta && electionData.meta.showLive === true);
+}
 function renderAll() {
   if (!electionData) return;
-  renderHeader();
-  renderBoards();
-  renderMap();
-  renderRaceList();
+  const live = isLive();
+  document.getElementById('ue-root').classList.toggle('ue-prelive', !live);
+  if (live) {
+    renderHeader();
+    renderBoards();
+    renderMap();
+    renderRaceList();
+  }
   renderStories();
   startRestore();
 }
