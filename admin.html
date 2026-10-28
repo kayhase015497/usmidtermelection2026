@@ -709,7 +709,7 @@ function mergeList(B0,L0,R0,path,kf,ctx){
   return order.filter(i=>out.has(i)).map(i=>out.get(i));
 }
 
-const FIELD_ZH={title:'標題',text:'文字說明',src:'影片／圖片',winner:'誰贏',called:'是否確定',margin:'領先差距',noRace:'本屆無選舉',pct:'得票率',reporting:'開票進度',competitive:'激烈戰區',seats:'席次',net:'增減',url:'網址',stateName:'州名',office:'院別',votes:'票數',name:'名稱'};
+const FIELD_ZH={hidden:'前台顯示',title:'標題',text:'文字說明',src:'影片／圖片',winner:'誰贏',called:'是否確定',margin:'領先差距',noRace:'本屆無選舉',pct:'得票率',reporting:'開票進度',competitive:'激烈戰區',seats:'席次',net:'增減',url:'網址',stateName:'州名',office:'院別',votes:'票數',name:'名稱'};
 const PARTY_ZH={dem:'民主黨',rep:'共和黨',ind:'獨立／其他'};
 const META_ZH={reporting:'開票進度文字',source:'資料來源',note:'頁面底部備註',showLive:'顯示即時開票區塊'};
 function labelFor(path,snaps){
@@ -743,6 +743,7 @@ function labelFor(path,snaps){
 }
 function fmtVal(path,v){
   const last=String(path[path.length-1]);
+  if(last==='hidden')return v?'隱藏':'顯示';
   if(v===undefined)return '（已刪除）';
   if(last==='__order')return `順序（共 ${(v||[]).length} 項）`;
   if(v===null)return last==='winner'?'未定':'（空）';
@@ -1311,13 +1312,15 @@ function renderStories(){
   <div class="vhead"><h2>📰 圖文內容</h2><p>顯示在地圖下方，由上到下排列；全部清空就不會顯示</p></div>
   <button class="gbtn gold block" style="margin-bottom:18px" onclick="addStory()">＋ 新增一則</button>
   ${list.length?list.map((st,i)=>`
-  <div class="panel" id="story-${i}">
+  <div class="panel" id="story-${i}"${st.hidden?' style="opacity:.75;background:#f1f3f9"':''}>
     <div class="story-h">
       <span class="badge">#${i+1}</span>
       <b id="st-name-${i}">${esc(st.title)||'（未命名）'}</b>
+      ${st.hidden?'<span class="chip N" style="flex:none">已隱藏</span>':''}
       <button class="gbtn sm sq" ${i===0?'disabled style="opacity:.35"':''} onclick="moveStory(${i},-1)" aria-label="上移">▲</button>
       <button class="gbtn sm sq" ${i===list.length-1?'disabled style="opacity:.35"':''} onclick="moveStory(${i},1)" aria-label="下移">▼</button>
     </div>
+    <div class="switch" style="margin:0 0 12px"><span>👁 在前台顯示這一則<br><small style="font-weight:700;color:var(--ink2)">${st.hidden?'目前隱藏中，內容都保留，隨時可以打開':'關閉後前台看不到，但內容不會刪除'}</small></span><button type="button" class="sw${st.hidden?'':' on'}" onclick="toggleStoryHidden(${i})" aria-label="切換顯示"></button></div>
     <div class="lab">標題（選填）</div>
     <input class="tin" value="${esc(st.title)}" placeholder="例如：為什麼這場選舉很重要" oninput="setStory(${i},'title',this.value)">
     <div class="lab">文字說明（選填）</div>
@@ -1353,6 +1356,7 @@ function renderStories(){
     <button class="gbtn red block" style="margin-top:16px" onclick="removeStory(${i})">🗑 刪除這一則</button>
   </div>`).join(''):'<div class="empty"><b>📰</b>還沒有內容<br>按上方「＋ 新增一則」</div>'}`;
 }
+function toggleStoryHidden(i){const s=data.stories[i];if(s.hidden)delete s.hidden;else s.hidden=true;markDirty();vib();renderStories()}
 function setStory(i,k,v){
   data.stories[i][k]=v;markDirty();
   if(k==='title'){const e=$('st-name-'+i);if(e)e.textContent=v||'（未命名）'}

@@ -795,7 +795,7 @@ function esc(s) {
 }
 function renderStories() {
   const wrap = document.getElementById('ue-stories');
-  const list = (electionData.stories || []).filter(s => s && (s.title || s.text || s.src || (s.links || []).some(l => l && safeUrl(l.url))));
+  const list = (electionData.stories || []).filter(s => s && !s.hidden && (s.title || s.text || s.src || (s.links || []).some(l => l && safeUrl(l.url))));
   const sig = JSON.stringify(list);
   if (sig === storiesSig) return;
   storiesSig = sig;
