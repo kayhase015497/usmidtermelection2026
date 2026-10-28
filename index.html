@@ -39,7 +39,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   --c-bg:#f5f2ec;--c-card:#ffffff;--c-border:#ddd6c8;
   --c-rep:#dc2626;--c-rep-dim:#fca5a5;--c-rep-glow:rgba(220,38,38,.10);
   --c-dem:#2563eb;--c-dem-dim:#93c5fd;--c-dem-glow:rgba(37,99,235,.10);
-  --c-ind:#7c3aed;--c-unc:#d4d0c6;
+  --c-ind:#7c3aed;--c-unc:#d4d0c6;--c-none:#ebe7dd;
   --c-text:#1f2430;--c-muted:#5f6675;--c-accent:#a16207;--c-accent-line:#e0a800;
   --c-accent-bg:rgba(224,168,0,.14);--c-accent-bd:rgba(161,98,7,.35);
   --c-head-bg:linear-gradient(135deg,#ffffff 0%,#f3eee3 100%);--c-head-text:#1f2430;
@@ -63,7 +63,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   --c-bg:#0b0f1a;--c-card:#131929;--c-border:#1e2a3d;
   --c-rep:#ef4444;--c-rep-dim:#7f1d1d;--c-rep-glow:rgba(239,68,68,.18);
   --c-dem:#3b82f6;--c-dem-dim:#1e3a8a;--c-dem-glow:rgba(59,130,246,.18);
-  --c-ind:#a855f7;--c-unc:#374151;
+  --c-ind:#a855f7;--c-unc:#374151;--c-none:#1a2233;
   --c-text:#e2e8f0;--c-muted:#7c8aa0;--c-accent:#f0b400;--c-accent-line:#f0b400;
   --c-accent-bg:rgba(240,180,0,.12);--c-accent-bd:rgba(240,180,0,.3);
   --c-head-bg:linear-gradient(135deg,#080d18 0%,#0f1d3a 60%,#1a0a0a 100%);--c-head-text:#ffffff;
@@ -285,6 +285,7 @@ html[data-font="c"]{
 .ue-state.winner-D{fill:var(--c-dem);}
 .ue-state.winner-I{fill:var(--c-ind);}
 .ue-state.winner-null{fill:var(--c-unc);}
+.ue-state.winner-none{fill:var(--c-none);}
 .ue-state.lean-R{fill:var(--c-lean-r);opacity:.85;}
 .ue-state.lean-D{fill:var(--c-lean-d);opacity:.85;}
 
@@ -560,11 +561,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- Map Panel -->
     <div class="ue-map-panel" data-anchor="map">
       <div class="ue-panel-head">
-        <span class="ue-panel-title">各州選情地圖</span>
+        <span class="ue-panel-title">參議院選情地圖</span>
         <div class="ue-map-legend">
           <div class="ue-leg-item"><div class="ue-leg-swatch" style="background:var(--c-dem)"></div>民主黨勝</div>
           <div class="ue-leg-item"><div class="ue-leg-swatch" style="background:var(--c-rep)"></div>共和黨勝</div>
           <div class="ue-leg-item"><div class="ue-leg-swatch" style="background:var(--c-unc)"></div>未決定</div>
+          <div class="ue-leg-item"><div class="ue-leg-swatch" style="background:var(--c-none);border:1px solid var(--c-border)"></div>本屆無參議員選舉</div>
         </div>
       </div>
       <svg id="ue-map-svg" viewBox="0 0 960 600" xmlns="http://www.w3.org/2000/svg"></svg>
@@ -993,6 +995,7 @@ function drawMap() {
       if (!abbr) return 'ue-state winner-null';
       const st = electionData.states[abbr];
       if (!st) return 'ue-state winner-null';
+      if (st.noRace) return 'ue-state winner-none';
       const w = st.called ? (st.winner || 'null') : 'null';
       const isClose = st.called && st.margin !== null && st.margin < 4;
       return `ue-state winner-${w}${isClose ? ' is-close' : ''}`;
@@ -1002,6 +1005,7 @@ function drawMap() {
       const abbr = FIPS[String(d.id).padStart(2,'0')];
       if (!abbr || !electionData.states[abbr]) return 0.5;
       const st = electionData.states[abbr];
+      if (st.noRace) return 1;
       if (!st.called) return 0.6;
       if (st.margin !== null && st.margin < 4) return 0.8;
       return 1;
@@ -1039,6 +1043,16 @@ function showTooltip(event, abbr, st) {
     winnerClass = st.winner;
   }
   const marginText = st && st.called && st.margin ? `差距 ${st.margin.toFixed(1)}%` : '';
+
+  if (st && st.noRace) {
+    tooltip.innerHTML = `
+      <div class="ue-tt-state">${abbr} · ${name}</div>
+      <div class="ue-tt-winner unc">本屆無參議員選舉</div>`;
+    tooltip.style.left = event.clientX + 'px';
+    tooltip.style.top = event.clientY + 'px';
+    tooltip.classList.add('visible');
+    return;
+  }
 
   tooltip.innerHTML = `
     <div class="ue-tt-state">${abbr} · ${name}</div>
@@ -1175,7 +1189,13 @@ function showStateModal(abbr) {
 
   let bodyHTML = '';
 
-  if (st) {
+  if (st && st.noRace) {
+    bodyHTML += `
+      <div style="margin-bottom:14px;">
+        <div style="font-size:20px;font-weight:700;color:var(--c-muted)">本屆無參議員選舉</div>
+        <div style="font-size:16px;line-height:1.7;color:var(--c-muted);margin-top:8px;">美國參議員任期 6 年，每 2 年改選約三分之一席次，${name}今年沒有輪到。</div>
+      </div>`;
+  } else if (st) {
     const wText = !st.called ? '計票中' : st.winner === 'D' ? '民主黨勝出' : st.winner === 'R' ? '共和黨勝出' : '未確定';
     const wColor = st.winner === 'D' ? 'var(--c-dem)' : st.winner === 'R' ? 'var(--c-rep)' : 'var(--c-muted)';
     bodyHTML += `
@@ -1195,7 +1215,7 @@ function showStateModal(abbr) {
         ${raceItemHTML(r)}
       </div>`
     ).join('');
-  } else {
+  } else if (!(st && st.noRace)) {
     bodyHTML += `<div style="font-family:var(--ff-label);font-size:14px;color:var(--c-muted);text-align:center;padding:20px 0;">此州詳細選情資料尚未收錄</div>`;
   }
 

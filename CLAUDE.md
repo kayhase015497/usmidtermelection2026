@@ -42,6 +42,11 @@
 - 每次進站算一次 PV；資料每 60 秒的自動更新、切換亮暗色、切換分頁都不會重複計算
 - GA4 等統計平台需加入網域 `usmidtermelection2026.chinatimes.com`；上線驗證用 GTM 預覽模式（Tag Assistant）
 
+## 地圖（參議院選情）
+- 地圖標題為「參議院選情地圖」：每州一色＝該州參議員選舉結果（眾議院以計分板與戰區列表呈現，不上地圖）
+- `states.XX.noRace: true` ＝「本屆無參議員選舉」（2026 年約 15 州沒有輪到）：地圖以淡灰色顯示，圖例標示，點擊顯示說明文字；後台地圖分頁可單州切換，或按「一鍵套用 2026 參議院沒有改選的 15 州」（AZ、CA、CT、HI、IN、MD、MO、NV、NY、ND、PA、UT、VT、WA、WI；名單需與美聯社核對）
+- 後台圖文「報導連結」每條都有 ▲▼ 排序箭頭與序號，前台依此順序顯示
+
 ## 外部資源（CDN）
 D3 v7、TopoJSON、US Atlas（jsDelivr）；Google Fonts（Noto Sans TC / Noto Serif TC / Barlow Condensed）
 

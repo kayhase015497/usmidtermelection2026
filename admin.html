@@ -214,12 +214,13 @@ input[type=range].xp::-moz-range-thumb{width:26px;height:26px;border-radius:50%;
 .tile.t-I{--c:var(--ind);--c2:#b99bfb}
 .tile.called{background:var(--c)}
 .tile.t-N{border-style:dashed;color:#7b87a6;text-shadow:none;background:#eef1f8}
+.tile.t-X{border-style:dotted;color:#b3bcd1;text-shadow:none;background:#fff;box-shadow:0 3px 0 #c9d1e4;border-color:#9aa6c4}
 .tile.has{outline:3px solid var(--gold);outline-offset:1px}
 .tile.flash{animation:pop .3s}
 .legend{display:flex;flex-wrap:wrap;gap:10px 16px;justify-content:center;margin-top:16px;font-size:13px;font-weight:900;color:var(--ink2)}
 .legend span{display:flex;align-items:center;gap:6px}
 .legend u{width:20px;height:20px;border:2.5px solid var(--ink);border-radius:6px;display:block}
-.sum{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px;text-align:center}
+.sum{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:16px;text-align:center}
 .sum div{border:3px solid var(--ink);border-radius:14px;padding:8px 2px;background:#fff;box-shadow:0 3px 0 var(--ink)}
 .sum b{display:block;font:700 24px var(--mono);line-height:1.1}
 .sum small{font-size:12px;font-weight:900}
@@ -227,6 +228,7 @@ input[type=range].xp::-moz-range-thumb{width:26px;height:26px;border-radius:50%;
 .sum .R b,.sum .R small{color:var(--rep)}
 .sum .I b,.sum .I small{color:var(--ind)}
 .sum .N b,.sum .N small{color:var(--ink2)}
+.sum .X b,.sum .X small{color:#9aa6c4}
 
 /* ── Races ── */
 .race{border:3px solid var(--ink);border-radius:18px;background:#fff;box-shadow:0 5px 0 var(--ink);margin-bottom:18px;overflow:hidden}
@@ -342,6 +344,8 @@ details.panel pre{
 .mempty{padding:22px 14px;text-align:center;color:#9aa6c4;font-size:14px;font-weight:700;line-height:1.6}
 .lkrow{border:3px solid var(--ink);border-radius:14px;padding:12px;margin-bottom:12px;background:#f6f8fd;display:grid;gap:10px}
 .lkbar{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+.lkord{display:flex;align-items:center;gap:6px;margin-right:auto}
+.lkord .badge{min-width:36px;padding:4px 6px;font-size:14px}
 .lkst:empty{display:none}
 .lkst{flex:1 1 140px;min-width:0;font-size:13px;font-weight:700;color:var(--ink2);line-height:1.4}
 .lkst.ok{color:var(--green-d)}.lkst.err{color:var(--rep-d)}
@@ -860,65 +864,87 @@ function paintChamber(ch){
 
 /* ═══════════ STATES (tile map) ═══════════ */
 function tileHTML(a,click,extra='',withId=false){
-  const s=data.states[a],w=s.winner||'N',g=GRID.find(x=>x[0]===a);
+  const s=data.states[a],w=s.noRace?'X':(s.winner||'N'),g=GRID.find(x=>x[0]===a);
   return `<button class="tile t-${w}${s.called?' called':''} ${extra}"${withId?` id="tile-${a}"`:''} style="grid-column:${g[1]+1};grid-row:${g[2]+1}" onclick="${click}">${a}</button>`;
 }
 function renderStates(){
   $('v-states').innerHTML=`
-  <div class="vhead"><h2>🗺 各州地圖</h2><p>點任一州，設定誰贏、是否確定</p></div>
+  <div class="vhead"><h2>🗺 各州地圖</h2><p>參議院選情：點任一州設定誰贏、是否確定；今年沒有參議員選舉的州請選「本屆無選舉」</p></div>
   <div class="sum" id="st-sum"></div>
   <div class="panel"><div class="tiles">${GRID.map(g=>tileHTML(g[0],`openState('${g[0]}')`,'',true)).join('')}</div>
     <div class="legend">
       <span><u style="background:var(--dem)"></u>已確定</span>
       <span><u style="background:repeating-linear-gradient(135deg,#2f6bff 0 4px,#7ea2ff 4px 8px)"></u>計票中領先</span>
       <span><u style="background:#eef1f8;border-style:dashed"></u>未定</span>
+      <span><u style="background:#fff;border-style:dotted;border-color:#9aa6c4"></u>本屆無選舉</span>
     </div>
-  </div>`;
+  </div>
+  <button class="gbtn block" style="margin-top:6px" onclick="applySenateList()">📋 一鍵套用「2026 參議院沒有改選的 15 州」</button>
+  <p class="hint">按下後，下列州會標示為「本屆無選舉」：${NO_SENATE_2026.map(a=>STATE_NAMES[a]).join('、')}。名單請與美聯社等來源核對。</p>`;
   paintSummary();
 }
 function paintSummary(){
-  const c={D:0,R:0,I:0,N:0};
-  STATE_ABBRS.forEach(a=>{c[data.states[a].winner||'N']++});
+  const c={D:0,R:0,I:0,N:0,X:0};
+  STATE_ABBRS.forEach(a=>{const st=data.states[a];c[st.noRace?'X':(st.winner||'N')]++});
   const el=$('st-sum');if(!el)return;
-  el.innerHTML=`<div class="D"><b>${c.D}</b><small>民主黨</small></div><div class="R"><b>${c.R}</b><small>共和黨</small></div><div class="I"><b>${c.I}</b><small>獨立</small></div><div class="N"><b>${c.N}</b><small>未定</small></div>`;
+  el.innerHTML=`<div class="D"><b>${c.D}</b><small>民主黨</small></div><div class="R"><b>${c.R}</b><small>共和黨</small></div><div class="I"><b>${c.I}</b><small>獨立</small></div><div class="N"><b>${c.N}</b><small>未定</small></div><div class="X"><b>${c.X}</b><small>無選舉</small></div>`;
 }
 function paintTile(a){
   const el=$('tile-'+a);if(!el)return;
-  const s=data.states[a],w=s.winner||'N';
+  const s=data.states[a],w=s.noRace?'X':(s.winner||'N');
   el.className=`tile t-${w}${s.called?' called':''} flash`;
   el.textContent=a;
   paintSummary();
 }
 function openState(a){curState=a;renderStateSheet()}
 function renderStateSheet(){
-  const a=curState,s=data.states[a],w=s.winner||'N',i=STATE_ABBRS.indexOf(a);
+  const a=curState,s=data.states[a],nr=!!s.noRace,w=nr?'X':(s.winner||'N'),i=STATE_ABBRS.indexOf(a);
   const prev=STATE_ABBRS[(i+STATE_ABBRS.length-1)%STATE_ABBRS.length],next=STATE_ABBRS[(i+1)%STATE_ABBRS.length];
-  const status=w==='N'?'尚無結果':s.called?'結果已確定':'計票中・目前領先';
+  const status=nr?'本屆無參議員選舉':w==='N'?'尚無結果':s.called?'結果已確定':'計票中・目前領先';
   const o=(v,label,cls,cur,fn)=>`<button type="button" class="opt ${cls}${cur===v?' sel':''}" onclick="${fn}">${cur===v?'✓ ':''}${label}</button>`;
   openSheet(`
   <div class="sh-h">
     <div class="sh-t"><span class="tile t-${w}${s.called?' called':''}" style="display:grid;place-items:center">${a}</span><div><b>${STATE_NAMES[a]}</b><small>${status}</small></div></div>
     <button class="gbtn sm sq" onclick="closeSheet()">✕</button>
   </div>
+  <div class="lab">這個州今年有參議員選舉嗎？</div>
+  <div class="choice c2">
+    ${o('race','✅ 有選舉','Y',nr?'none':'race',`setStateNoRace('${a}',false)`)}
+    ${o('none','本屆無選舉','N',nr?'none':'race',`setStateNoRace('${a}',true)`)}
+  </div>
   <div class="lab">誰贏（或目前領先）？</div>
-  <div class="choice c4">
+  <div class="choice c4${nr?' dis':''}">
     ${o('D','民主黨','D',w,`setStateWinner('${a}','D')`)}
     ${o('R','共和黨','R',w,`setStateWinner('${a}','R')`)}
     ${o('I','獨立','I',w,`setStateWinner('${a}','I')`)}
     ${o('N','未定','N',w,`setStateWinner('${a}','N')`)}
   </div>
   <div class="lab">結果確定了嗎？${w==='N'?'（先選上面的勝方）':''}</div>
-  <div class="choice c2${w==='N'?' dis':''}">
+  <div class="choice c2${w==='N'||nr?' dis':''}">
     ${o('0','🕐 計票中','W',s.called?'1':'0',`setStateCalled('${a}',false)`)}
     ${o('1','✅ 已確定','Y',s.called?'1':'0',`setStateCalled('${a}',true)`)}
   </div>
   <div class="lab">領先差距 %（選填）</div>
-  ${stepper({id:'margin-in',dec:1,step:0.5,value:s.margin??'',off:w==='N',fn:`d=>stepMargin('${a}',d)`,oninput:`setMargin('${a}',this.value)`})}
+  ${stepper({id:'margin-in',dec:1,step:0.5,value:s.margin??'',off:w==='N'||nr,fn:`d=>stepMargin('${a}',d)`,oninput:`setMargin('${a}',this.value)`})}
   <div class="sh-nav">
     <button class="gbtn" onclick="openState('${prev}')">◀ ${prev}</button>
     <button class="gbtn green" onclick="closeSheet()">完成</button>
     <button class="gbtn" onclick="openState('${next}')">${next} ▶</button>
   </div>`);
+}
+const NO_SENATE_2026=['AZ','CA','CT','HI','IN','MD','MO','NV','NY','ND','PA','UT','VT','WA','WI'];
+function setStateNoRace(a,b){
+  const s=data.states[a];
+  if(b){s.noRace=true;s.winner=null;s.called=false;s.margin=null}else{delete s.noRace}
+  markDirty();vib();paintTile(a);renderStateSheet();
+}
+function applySenateList(){
+  if(!confirm('以下 15 州會標示為「本屆無參議員選舉」，這些州原本填的結果會清除：\n\n'+NO_SENATE_2026.map(a=>STATE_NAMES[a]).join('、')+'\n\n其餘州會改回「有選舉」。確定嗎？'))return;
+  STATE_ABBRS.forEach(a=>{
+    const s=data.states[a];
+    if(NO_SENATE_2026.includes(a)){s.noRace=true;s.winner=null;s.called=false;s.margin=null}else{delete s.noRace}
+  });
+  markDirty();vib();renderStates();toast('已套用，記得按「存檔上線」','ok');
 }
 function setStateWinner(a,w){
   const s=data.states[a];
@@ -1104,6 +1130,11 @@ function renderStories(){
         oninput="setLinkUrl(${i},${j},this.value)" onchange="commitLinkUrl(${i},${j})" onpaste="setTimeout(()=>commitLinkUrl(${i},${j}),0)">
       <input class="tin" id="lk-title-${i}-${j}" value="${esc(l.title)}" placeholder="顯示標題（會自動抓取，可自行修改）" oninput="setLinkTitle(${i},${j},this.value)">
       <div class="lkbar">
+        <div class="lkord">
+          <span class="badge">${j+1}</span>
+          <button class="gbtn sm sq" ${j===0?'disabled style="opacity:.35"':''} onclick="moveLink(${i},${j},-1)" aria-label="上移">▲</button>
+          <button class="gbtn sm sq" ${j===st.links.length-1?'disabled style="opacity:.35"':''} onclick="moveLink(${i},${j},1)" aria-label="下移">▼</button>
+        </div>
         <span class="lkst" id="lk-st-${i}-${j}"></span>
         <button class="gbtn sm" onclick="commitLinkUrl(${i},${j},true)">↻ 重抓標題</button>
         <button class="gbtn red sm" onclick="removeLink(${i},${j})">🗑</button>
@@ -1177,6 +1208,13 @@ function addLink(i){
   setTimeout(()=>{const e=$(`lk-url-${i}-${data.stories[i].links.length-1}`);e&&e.focus()},60);
 }
 function removeLink(i,j){data.stories[i].links.splice(j,1);markDirty();renderStories()}
+function moveLink(i,j,d){
+  const l=data.stories[i].links,k=j+d;
+  if(k<0||k>=l.length)return;
+  [l[j],l[k]]=[l[k],l[j]];
+  markDirty();vib();renderStories();
+  setTimeout(()=>{const e=$(`lk-url-${i}-${k}`);if(e)e.closest('.lkrow').scrollIntoView({block:'center',behavior:'smooth'})},40);
+}
 function setLinkUrl(i,j,v){data.stories[i].links[j].url=v;markDirty()}
 function setLinkTitle(i,j,v){const l=data.stories[i].links[j];l.title=v;l._manual=true;markDirty()}
 async function commitLinkUrl(i,j,force){
