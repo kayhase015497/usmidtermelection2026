@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-10-28T12:10:22-04:00",
+    "lastUpdated": "2026-10-28T12:14:47-04:00",
     "reporting": "0918 測試  已開出 52% 選區 ",
     "note": "測試中",
     "source": "美聯社、各州選務委員會",
@@ -409,10 +409,6 @@
       "src": "medias/uO4pd-AJtK6sq5Up-mvc4m57u.mp4",
       "links": [
         {
-          "url": "https://www.chinatimes.com/realtimenews/20261016004342-260408?chdtv",
-          "title": "「被要求去做服務」 美國參議院1職位人人避之唯恐不及"
-        },
-        {
           "url": "https://www.chinatimes.com/realtimenews/20261012004240-260408?chdtv",
           "title": "紅潮難掀「藍色海嘯」？川普不受歡迎 但民主黨也難狂勝6大原因"
         },
@@ -427,6 +423,10 @@
         {
           "url": "https://www.chinatimes.com/realtimenews/20261009003162-260408?chdtv",
           "title": "民主黨來勢洶洶有望扭轉眾院 但共和黨手上還有這優勢"
+        },
+        {
+          "url": "https://www.chinatimes.com/realtimenews/20261016004342-260408?chdtv",
+          "title": "「被要求去做服務」 美國參議院1職位人人避之唯恐不及"
         }
       ]
     },
@@ -491,6 +491,10 @@
         {
           "url": "https://www.chinatimes.com/realtimenews/20261021003946-260408?chdtv",
           "title": "川普通話普丁90分鐘後轉向！10天接連出招倒向俄 克宮嗨喊「將軍了」"
+        },
+        {
+          "url": "https://www.chinatimes.com/realtimenews/20261002004065-260408?chdtv",
+          "title": "川普片面宣布韓國重金投資LNG管道 韓媒：急於搶救共和黨紅州選情"
         }
       ]
     }
