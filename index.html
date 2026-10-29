@@ -783,7 +783,7 @@ function storyHTML(st, i) {
   const links = (st.links || []).map(l => ({ url: safeUrl(l && l.url), title: ((l && l.title) || '').trim() })).filter(l => l.url);
   const extra = Math.max(0, links.length - LINK_LIMIT);
   const linkHTML = links.length
-    ? `<div class="ue-story-links-lbl">相關報導</div><ul class="ue-story-links">${links.map((l, k) => `<li${k >= LINK_LIMIT ? ' class="ue-link-extra" hidden' : ''}><a href="${esc(l.url)}" target="_top">${esc(l.title || hostOf(l.url))}</a></li>`).join('')}</ul>${extra ? `<button type="button" class="ue-story-more" aria-expanded="false" data-more="${extra}">更多報導（+${extra}）</button>` : ''}`
+    ? `<div class="ue-story-links-lbl">相關報導</div><ul class="ue-story-links">${links.map((l, k) => `<li${k >= LINK_LIMIT ? ' class="ue-link-extra" hidden' : ''}><a href="${esc(l.url)}" target="_top">${esc(l.title || hostOf(l.url))}</a></li>`).join('')}</ul>${extra ? `<button type="button" class="ue-story-more" aria-expanded="false">更多報導</button>` : ''}`
     : '';
   const body = (title || text || linkHTML)
     ? `<div class="ue-story-body">${title ? `<div class="ue-story-title">${esc(title)}</div>` : ''}${text ? `<div class="ue-story-text">${esc(text)}</div>` : ''}${linkHTML}</div>`
@@ -810,7 +810,7 @@ document.addEventListener('click', e => {
   const open = btn.getAttribute('aria-expanded') !== 'true';
   btn.previousElementSibling.querySelectorAll('.ue-link-extra').forEach(li => { li.hidden = !open; });
   btn.setAttribute('aria-expanded', String(open));
-  btn.textContent = open ? '收起報導' : `更多報導（+${btn.dataset.more}）`;
+  btn.textContent = open ? '收起報導' : '更多報導';
 });
 
 /* ══════════════════════════════════════════════
