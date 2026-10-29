@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-10-29T00:36:25-04:00",
+    "lastUpdated": "2026-10-29T03:46:55-04:00",
     "reporting": "0918 測試  已開出 52% 選區 ",
     "note": "測試中",
     "source": "美聯社、各州選務委員會",
@@ -373,9 +373,22 @@
   },
   "stories": [
     {
+      "id": "s-muzd3u3m",
+      "title": "最新消息",
+      "text": "",
+      "src": "medias/Slo3RKCaT88saEDN-muzdc1ss.mp4",
+      "links": [
+        {
+          "url": "https://www.chinatimes.com/realtimenews/20261029001932-260408?chdtv",
+          "title": "期中選前震撼彈 恐涉川普美媒曝淫魔檔案120萬頁神秘消失"
+        }
+      ],
+      "page": "p2"
+    },
+    {
       "id": "s-muttkbn7",
       "title": "選舉全解析",
-      "text": "選後解讀｜川普政策延續、中美關係與台灣安全影響",
+      "text": "解讀｜川普政策延續、中美關係與台灣安全影響",
       "src": "medias/KcnoxIK131N0rzYj-muttpkpr.mp4",
       "links": [
         {
@@ -392,15 +405,6 @@
         }
       ],
       "page": "p1"
-    },
-    {
-      "id": "s-muzd3u3m",
-      "title": "眾議院決戰",
-      "text": "435席全面爭奪｜川普能否守住眾院控制權？",
-      "src": "medias/Slo3RKCaT88saEDN-muzdc1ss.mp4",
-      "links": [],
-      "page": "p2",
-      "hidden": true
     },
     {
       "id": "s-mvc425fc",
