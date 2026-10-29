@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-10-29T03:50:00-04:00",
+    "lastUpdated": "2026-10-29T03:50:21-04:00",
     "reporting": "0918 測試  已開出 52% 選區 ",
     "note": "測試中",
     "source": "美聯社、各州選務委員會",
@@ -385,6 +385,10 @@
         {
           "url": "https://www.chinatimes.com/realtimenews/20261029001071-260408",
           "title": "影》美期中選舉倒數造勢 川普在戰場州對飆歐巴馬 撇不開淫魔陰魂 - 國際"
+        },
+        {
+          "url": "https://www.chinatimes.com/realtimenews/20261029001071-260408?chdtv",
+          "title": "影》美期中選舉倒數造勢 川普在戰場州對飆歐巴馬 撇不開淫魔陰魂"
         }
       ],
       "page": "p2"
@@ -412,7 +416,7 @@
     },
     {
       "id": "s-mvc425fc",
-      "title": "參議院關鍵戰",
+      "title": "參眾兩院關鍵戰",
       "text": "參院控制權決戰｜川普關鍵州保衛戰\n435席全面爭奪｜川普能否守住眾院控制權？",
       "src": "medias/uO4pd-AJtK6sq5Up-mvc4m57u.mp4",
       "links": [
