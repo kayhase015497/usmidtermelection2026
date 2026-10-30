@@ -1345,6 +1345,7 @@ function renderStories(){
     <textarea class="tin tarea" placeholder="直接輸入，按 Enter 可換行" oninput="setStory(${i},'text',this.value)">${esc(st.text)}</textarea>
     <div class="lab">報導連結（選填，可多則）</div>
     <p class="hint" style="margin:-4px 0 10px">前台先顯示前 5 條，超過的收在「更多報導」按鈕裡，請把最重要的排在前面。</p>
+    <button class="gbtn block" style="margin-bottom:12px" onclick="addLink(${i})">＋ 新增報導連結（加在最上面）</button>
     ${st.links.map((l,j)=>`
     <div class="lkrow">
       <input class="tin" id="lk-url-${i}-${j}" value="${esc(l.url)}" inputmode="url" autocapitalize="off" placeholder="貼上報導網址（例如 chinatimes.com 的新聞）"
@@ -1362,7 +1363,6 @@ function renderStories(){
         <button class="gbtn red sm" onclick="removeLink(${i},${j})">🗑</button>
       </div>
     </div>`).join('')}
-    <button class="gbtn block" onclick="addLink(${i})">＋ 新增報導連結</button>
     <div class="lab">圖片／GIF／影片（選填）</div>
     <div class="mprev" id="mp-${i}">${mediaPreview(st.src)}</div>
     <div class="mbtns">
@@ -1449,8 +1449,12 @@ function linkStatus(st,l,msg,cls){
   if(e){e.textContent=msg;e.className='lkst '+(cls||'')}
 }
 function addLink(i){
-  data.stories[i].links.push({url:'',title:'',_lastUrl:''});markDirty();renderStories();
-  setTimeout(()=>{const e=$(`lk-url-${i}-${data.stories[i].links.length-1}`);e&&e.focus()},60);
+  data.stories[i].links.unshift({url:'',title:'',_lastUrl:''});markDirty();renderStories();
+  setTimeout(()=>{
+    const e=$(`lk-url-${i}-0`);if(!e)return;
+    e.closest('.lkrow').scrollIntoView({block:'center',behavior:'smooth'});
+    e.focus({preventScroll:true});
+  },60);
 }
 function removeLink(i,j){data.stories[i].links.splice(j,1);markDirty();renderStories()}
 function moveLinkTop(i,j){
