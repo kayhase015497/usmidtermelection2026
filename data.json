@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-10-30T04:11:42-04:00",
+    "lastUpdated": "2026-10-30T04:28:28-04:00",
     "reporting": "0918 測試  已開出 52% 選區 ",
     "note": "測試中",
     "source": "美聯社、各州選務委員會",
@@ -436,14 +436,6 @@
       "src": "medias/KcnoxIK131N0rzYj-muttpkpr.mp4",
       "links": [
         {
-          "url": "https://www.chinatimes.com/newspapers/20261006000659-260109?chdtv",
-          "title": "美期中選舉 重塑美中台關係"
-        },
-        {
-          "url": "https://www.chinatimes.com/realtimenews/20261005000010-260410?chdtv",
-          "title": "川普上談判桌大玩戰略模糊 美國對台軍售會如何發展？"
-        },
-        {
           "url": "https://www.chinatimes.com/realtimenews/20261029002202-260408?chdtv",
           "title": "前共和黨對華鷹派議員蓋拉格警告 AI發展讓北京更有理由奪台"
         },
@@ -456,20 +448,20 @@
           "title": "再指台灣100％偷走晶片！川普：美國若有聰明總統 兩岸問題根本不存在"
         },
         {
-          "url": "https://www.chinatimes.com/realtimenews/20261024002960-260408?chdtv",
-          "title": "美眾議員貝拉：將促川普通過對台軍售 警告習近平勿武力犯台"
-        },
-        {
           "url": "https://www.chinatimes.com/realtimenews/20261025000081-260408?chdtv",
           "title": "助長永久法理台獨？美前官員：華府過度強調台灣地緣價值 恐毀戰略模糊"
         },
         {
-          "url": "https://www.chinatimes.com/realtimenews/20261021003306-260408?chdtv",
-          "title": "若台海爆衝突 美陸軍新作戰指南：擬讓駐紮美軍首日立即作戰"
+          "url": "https://www.chinatimes.com/realtimenews/20261024002960-260408?chdtv",
+          "title": "美眾議員貝拉：將促川普通過對台軍售 警告習近平勿武力犯台"
         },
         {
           "url": "https://www.chinatimes.com/realtimenews/20261021002432-260408?chdtv",
           "title": "台灣首承認！砸8240萬請美印太退役將領觀察漢光演習提升戰力"
+        },
+        {
+          "url": "https://www.chinatimes.com/realtimenews/20261021003306-260408?chdtv",
+          "title": "若台海爆衝突 美陸軍新作戰指南：擬讓駐紮美軍首日立即作戰"
         },
         {
           "url": "https://www.chinatimes.com/realtimenews/20261019003209-260408?chdtv",
@@ -514,6 +506,14 @@
         {
           "url": "https://www.chinatimes.com/realtimenews/20261007001369-260408?chdtv",
           "title": "美前副總統彭斯警告：北京是21世紀美國最大經濟與戰略威脅"
+        },
+        {
+          "url": "https://www.chinatimes.com/newspapers/20261006000659-260109?chdtv",
+          "title": "美期中選舉 重塑美中台關係"
+        },
+        {
+          "url": "https://www.chinatimes.com/realtimenews/20261005000010-260410?chdtv",
+          "title": "川普上談判桌大玩戰略模糊 美國對台軍售會如何發展？"
         },
         {
           "url": "https://www.chinatimes.com/realtimenews/20261003002686-260408?chdtv",
