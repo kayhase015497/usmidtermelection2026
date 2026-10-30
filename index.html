@@ -340,7 +340,8 @@ html[data-font="c"]{
 }
 .ue-story-title{font-family:var(--ff-display);font-size:clamp(26px,3vw,32px);font-weight:900;line-height:1.35;margin-bottom:12px;}
 .ue-story-text{font-size:calc(var(--fs-base) + 4px);line-height:1.8;color:var(--c-text);white-space:pre-line;}
-.ue-story-links{list-style:none;margin-top:14px;display:flex;flex-direction:column;gap:8px;}
+.ue-story-links{list-style:none;margin-top:14px;margin-bottom:-8px;display:block;}
+.ue-story-links li{margin-bottom:8px;}
 .ue-story-more{
   margin-top:12px;padding:8px 18px;font-family:inherit;font-weight:700;
   font-size:calc(var(--fs-md) + 2px);color:var(--c-accent);background:transparent;
@@ -807,14 +808,83 @@ function renderStories() {
   storiesSig = sig;
   wrap.hidden = list.length === 0;
   wrap.innerHTML = list.map(storyHTML).join('');
+  initRotators();
 }
 
-/* 報導連結超過 5 條：「更多報導」展開／收起 */
+/* 報導連結超過 5 條：每 3 秒自動輪播（最上面一條淡出上滑、下一條從下方滑入）；
+   「更多報導」展開後停止輪播並列出全部，收起後恢復 */
+const ROT_MS = 3000, ROT_ANIM = 650;
+const reduceMotion = () => window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+let rotIO = null;
+function initRotators() {
+  if (reduceMotion() || !('animate' in Element.prototype)) return;
+  if (!rotIO && 'IntersectionObserver' in window) {
+    rotIO = new IntersectionObserver(es => es.forEach(en => { if (en.target._rot) en.target._rot.vis = en.isIntersecting; }), { threshold: 0.1 });
+  }
+  let k = 0;
+  document.querySelectorAll('.ue-story-links').forEach(ul => {
+    const items = [...ul.children];
+    if (items.length <= LINK_LIMIT || ul._rot) return;
+    const R = ul._rot = { items, win: items.slice(0, LINK_LIMIT), pos: LINK_LIMIT, expanded: false, vis: !rotIO, hold: false, holdUntil: 0, next: Date.now() + ROT_MS + (k++) * 700 };
+    items.slice(LINK_LIMIT).forEach(li => li.remove());
+    const hold = on => () => { R.hold = on; if (!on) R.next = Date.now() + 1800; };
+    ul.addEventListener('mouseenter', hold(true)); ul.addEventListener('mouseleave', hold(false));
+    ul.addEventListener('focusin', hold(true)); ul.addEventListener('focusout', hold(false));
+    ul.addEventListener('touchstart', () => { R.holdUntil = Date.now() + 6000; }, { passive: true });
+    if (rotIO) rotIO.observe(ul);
+  });
+}
+function rotNext(ul) {
+  const R = ul._rot, out = R.win.shift(), inn = R.items[R.pos % R.items.length];
+  R.pos++;
+  inn.hidden = false;
+  ul.appendChild(inn);
+  const hIn = inn.offsetHeight, hOut = out.offsetHeight;
+  inn.style.overflow = 'hidden';
+  inn.animate(
+    [{ opacity: 0, transform: 'translateY(18px) scale(.98)', height: '0px', marginBottom: '0px' },
+     { opacity: 1, transform: 'none', height: hIn + 'px', marginBottom: '8px' }],
+    { duration: ROT_ANIM, easing: 'cubic-bezier(.2,.8,.2,1)' }
+  ).onfinish = () => { inn.style.overflow = ''; };
+  out.style.overflow = 'hidden';
+  out.animate(
+    [{ opacity: 1, transform: 'none', height: hOut + 'px', marginBottom: '8px' },
+     { opacity: 0, transform: 'translateY(-18px) scale(.98)', height: '0px', marginBottom: '0px' }],
+    { duration: ROT_ANIM, easing: 'ease', fill: 'forwards' }
+  ).onfinish = () => { if (!R.expanded && out.parentNode === ul) out.remove(); out.style.overflow = ''; };
+  R.win.push(inn);
+}
+function rotExpand(ul) {
+  const R = ul._rot;
+  R.expanded = true;
+  ul.getAnimations({ subtree: true }).forEach(a => a.cancel());
+  R.items.forEach(li => { li.hidden = false; li.style.overflow = ''; });
+  ul.replaceChildren(...R.items);
+}
+function rotCollapse(ul) {
+  const R = ul._rot;
+  R.expanded = false; R.win = R.items.slice(0, LINK_LIMIT); R.pos = LINK_LIMIT;
+  ul.replaceChildren(...R.win);
+  R.next = Date.now() + ROT_MS;
+}
+setInterval(() => {
+  if (document.hidden) return;
+  const now = Date.now();
+  document.querySelectorAll('.ue-story-links').forEach(ul => {
+    const R = ul._rot;
+    if (!R || R.expanded || !R.vis || R.hold || now < R.holdUntil || now < R.next) return;
+    rotNext(ul);
+    R.next = now + ROT_MS;
+  });
+}, 250);
+
 document.addEventListener('click', e => {
   const btn = e.target.closest && e.target.closest('.ue-story-more');
   if (!btn) return;
+  const ul = btn.previousElementSibling;
   const open = btn.getAttribute('aria-expanded') !== 'true';
-  btn.previousElementSibling.querySelectorAll('.ue-link-extra').forEach(li => { li.hidden = !open; });
+  if (ul._rot) { open ? rotExpand(ul) : rotCollapse(ul); }
+  else ul.querySelectorAll('.ue-link-extra').forEach(li => { li.hidden = !open; });
   btn.setAttribute('aria-expanded', String(open));
   btn.textContent = open ? '收起報導' : '更多報導';
 });
