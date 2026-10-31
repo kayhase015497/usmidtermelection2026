@@ -511,6 +511,11 @@ html[data-font="c"]{
 .ue-modal-body{padding:20px;font-size:var(--fs-base);}
 
 /* ── Footer ── */
+.ue-credit{
+  padding:22px 18px 30px;text-align:center;border-top:1px solid var(--c-border);
+  font-size:var(--fs-md);line-height:1.7;color:var(--c-muted);letter-spacing:.5px;
+}
+.ue-credit b{color:var(--c-text);font-weight:700;margin-left:6px;}
 .ue-foot{
   padding:14px 18px;border-top:1px solid var(--c-border);
   display:flex;align-items:center;justify-content:space-between;
@@ -627,6 +632,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <span class="ue-foot-note" id="ue-foot-note">來源：美聯社、各州選務委員會 · 數據每60秒自動更新</span>
     <button class="ue-refresh-btn" id="ue-refresh-btn" onclick="manualRefresh()">↻ 立即更新</button>
   </div>
+
+  <!-- 署名（開票前後都顯示） -->
+  <div class="ue-credit">規劃執行：<b>楊幼蘭、張威翔、栗筱雯</b></div>
 
 </div>
 
