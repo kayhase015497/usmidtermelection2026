@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-10-30T04:32:22-04:00",
+    "lastUpdated": "2026-10-31T04:31:13-04:00",
     "reporting": "0918 測試  已開出 52% 選區 ",
     "note": "測試中",
     "source": "美聯社、各州選務委員會",
@@ -379,6 +379,14 @@
       "src": "medias/Slo3RKCaT88saEDN-muzdc1ss.mp4",
       "links": [
         {
+          "url": "https://www.chinatimes.com/realtimenews/20261031001128-260408?chdtv",
+          "title": "多次槓川普！教宗良十四世郵寄選票回美國 參與期中選舉創首例"
+        },
+        {
+          "url": "https://www.chinatimes.com/realtimenews/20261030000025-260408?chdtv",
+          "title": "共和黨搬救兵！盧比歐成川普救命稻草 打破國務卿不造勢慣例"
+        },
+        {
           "url": "https://www.chinatimes.com/realtimenews/20261028004273-260408?chdtv",
           "title": "五角大廈堡壘計畫曝光 美FBI前局長急籲大眾「快囤3天物資」"
         },
@@ -424,7 +432,7 @@
         },
         {
           "url": "https://www.chinatimes.com/realtimenews/20261030001030-260408",
-          "title": "影》期中選舉逼近 川普連連取消紅州造勢 被追問健康暴怒飆罵 - 國際"
+          "title": "影》期中選舉逼近 川普連連取消紅州造勢 被追問健康暴怒飆罵"
         }
       ],
       "page": "p2"
@@ -435,6 +443,10 @@
       "text": "解讀｜川普政策、中美關係與台灣安全影響",
       "src": "medias/KcnoxIK131N0rzYj-muttpkpr.mp4",
       "links": [
+        {
+          "url": "https://www.chinatimes.com/realtimenews/20261030002417-260408?chdtv",
+          "title": "美期中選舉牽動台灣！專家們剖析新國會挺台變數 更該緊盯川普"
+        },
         {
           "url": "https://www.chinatimes.com/realtimenews/20261029002202-260408?chdtv",
           "title": "前共和黨對華鷹派議員蓋拉格警告 AI發展讓北京更有理由奪台"
@@ -537,6 +549,10 @@
       "src": "medias/uO4pd-AJtK6sq5Up-mvc4m57u.mp4",
       "links": [
         {
+          "url": "https://www.chinatimes.com/realtimenews/20261030000006-260408?chdtv",
+          "title": "「造王者」桑德斯衣缽爭奪戰開打 美選舉兩大接班人路線交鋒"
+        },
+        {
           "url": "https://www.chinatimes.com/realtimenews/20261030002417-260408?chdtv",
           "title": "美期中選舉牽動台灣！專家們剖析新國會挺台變數 更該緊盯川普"
         },
@@ -602,7 +618,7 @@
         },
         {
           "url": "https://www.chinatimes.com/realtimenews/20261030001293-260408?chdtv",
-          "title": "川普恐遭選民狠狠教訓！共和黨選情告急 民主黨卻怕「這變數」 - 國際"
+          "title": "川普恐遭選民狠狠教訓！共和黨選情告急 民主黨卻怕「這變數」"
         }
       ]
     },
