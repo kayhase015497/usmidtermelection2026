@@ -342,6 +342,7 @@ html[data-font="c"]{
 .ue-story-text{font-size:calc(var(--fs-base) + 4px);line-height:1.8;color:var(--c-text);white-space:pre-line;}
 .ue-story-links{list-style:none;margin-top:14px;margin-bottom:-8px;display:block;}
 .ue-story-links li{margin-bottom:8px;}
+.ue-story-links a:focus-visible{outline:2px solid var(--c-accent);outline-offset:-2px;border-radius:2px;}
 .ue-story-more{
   margin-top:12px;padding:8px 18px;font-family:inherit;font-weight:700;
   font-size:calc(var(--fs-md) + 2px);color:var(--c-accent);background:transparent;
@@ -835,12 +836,43 @@ function initRotators() {
     if (items.length <= LINK_LIMIT || ul._rot) return;
     const R = ul._rot = { items, win: items.slice(0, LINK_LIMIT), pos: LINK_LIMIT, expanded: false, vis: !rotIO, hold: false, holdUntil: 0, next: Date.now() + ROT_MS + (k++) * 700 };
     items.slice(LINK_LIMIT).forEach(li => li.remove());
+    rotMeasure(ul);
     const hold = on => () => { R.hold = on; if (!on) R.next = Date.now() + 1800; };
     ul.addEventListener('mouseenter', hold(true)); ul.addEventListener('mouseleave', hold(false));
     ul.addEventListener('focusin', hold(true)); ul.addEventListener('focusout', hold(false));
     ul.addEventListener('touchstart', () => { R.holdUntil = Date.now() + 6000; }, { passive: true });
     if (rotIO) rotIO.observe(ul);
   });
+}
+/* 鎖定列表高度：取「所有可能的 5 條組合」中最高的那個，輪播時卡片高度不變，影片欄位就不會跳動 */
+function rotMeasure(ul) {
+  const R = ul._rot;
+  if (!R || R.expanded) return;
+  const cur = [...ul.children];
+  ul.getAnimations({ subtree: true }).forEach(a => a.cancel());
+  ul.style.height = ''; ul.style.marginBottom = ''; ul.style.overflow = '';
+  R.items.forEach(li => { li.hidden = false; li.style.overflow = ''; });
+  ul.replaceChildren(...R.items);
+  const H = R.items.map(li => li.offsetHeight + 8), n = H.length;
+  let max = 0;
+  for (let p = 0; p < n; p++) {
+    let sum = 0;
+    for (let k = 0; k < LINK_LIMIT; k++) sum += H[(p + k) % n];
+    max = Math.max(max, sum);
+  }
+  ul.replaceChildren(...cur);
+  ul.style.height = (max - 8) + 'px';
+  ul.style.marginBottom = '0';
+  ul.style.overflow = 'hidden';
+}
+function rotMeasureAll() {
+  document.querySelectorAll('.ue-story-links').forEach(ul => { if (ul._rot && !ul._rot.expanded) rotMeasure(ul); });
+}
+let rotResizeT = null;
+window.addEventListener('resize', () => { clearTimeout(rotResizeT); rotResizeT = setTimeout(rotMeasureAll, 200); });
+if (document.fonts) {
+  document.fonts.ready.then(rotMeasureAll);
+  document.fonts.addEventListener && document.fonts.addEventListener('loadingdone', rotMeasureAll);
 }
 function rotNext(ul) {
   const R = ul._rot, out = R.win.shift(), inn = R.items[R.pos % R.items.length];
@@ -866,6 +898,7 @@ function rotExpand(ul) {
   const R = ul._rot;
   R.expanded = true;
   ul.getAnimations({ subtree: true }).forEach(a => a.cancel());
+  ul.style.height = ''; ul.style.marginBottom = ''; ul.style.overflow = '';
   R.items.forEach(li => { li.hidden = false; li.style.overflow = ''; });
   ul.replaceChildren(...R.items);
 }
@@ -873,6 +906,7 @@ function rotCollapse(ul) {
   const R = ul._rot;
   R.expanded = false; R.win = R.items.slice(0, LINK_LIMIT); R.pos = LINK_LIMIT;
   ul.replaceChildren(...R.win);
+  rotMeasure(ul);
   R.next = Date.now() + ROT_MS;
 }
 setInterval(() => {
@@ -880,7 +914,11 @@ setInterval(() => {
   const now = Date.now();
   document.querySelectorAll('.ue-story-links').forEach(ul => {
     const R = ul._rot;
-    if (!R || R.expanded || !R.vis || R.hold || now < R.holdUntil || now < R.next) return;
+    if (!R || R.expanded || !R.vis) return;
+    // 直接檢查指標是否正停在列表上（比事件更可靠，DOM 重排時事件可能漏掉）
+    if (R.hold || ul.matches(':hover') || ul.matches(':focus-within') || now < R.holdUntil) { R.wasHeld = true; return; }
+    if (R.wasHeld) { R.wasHeld = false; R.next = now + 1800; }
+    if (now < R.next) return;
     rotNext(ul);
     R.next = now + ROT_MS;
   });
