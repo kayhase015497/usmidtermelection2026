@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-10-31T04:31:13-04:00",
+    "lastUpdated": "2026-11-01T01:35:22-05:00",
     "reporting": "0918 測試  已開出 52% 選區 ",
     "note": "測試中",
     "source": "美聯社、各州選務委員會",
@@ -628,6 +628,10 @@
       "text": "最新民調與席次預測｜川普執政下的兩黨勝算",
       "src": "medias/poll2-mvc6awvi.mp4",
       "links": [
+        {
+          "url": "https://www.chinatimes.com/realtimenews/20261101001739-260408",
+          "title": "美國人不信民調！ 共和黨嗆被低估 誓用選票證明「選民才是對的」"
+        },
         {
           "url": "https://www.chinatimes.com/realtimenews/20261022004846-260408?chdtv",
           "title": "美國期中選舉將近 民主黨選民憂計票不準確 信心比4年前衰退"
