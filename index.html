@@ -96,7 +96,11 @@ html[data-font="c"]{
 .ue-logo{
   position:absolute;left:24px;top:48px;display:block;height:34px;width:auto;box-sizing:content-box;
   background:#fff;border:1px solid var(--c-border);border-radius:8px;padding:4px 10px;
+  transition:box-shadow .2s,transform .2s,border-color .2s;
 }
+.ue-logo-link:hover .ue-logo{box-shadow:var(--c-shadow);transform:translateY(-1px);border-color:var(--c-accent-line);}
+.ue-logo-link:focus-visible{outline:none;}
+.ue-logo-link:focus-visible .ue-logo{outline:3px solid var(--c-accent-line);outline-offset:2px;}
 .ue-hero-title{
   font-family:var(--ff-display);font-weight:900;line-height:1.15;color:var(--c-head-text);
   font-size:clamp(40px,9.5vw,92px);margin-bottom:14px;
@@ -560,7 +564,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- Hero：專題大標 -->
   <div class="ue-hero">
     <div class="ue-kicker">🇺🇸 Breaking · 2026 Midterms</div>
-    <img class="ue-logo" src="./medias/chinatimes-logo.png" width="136" height="34" alt="中時新聞網">
+    <a class="ue-logo-link" href="https://www.chinatimes.com/" target="_top" aria-label="回到中時新聞網首頁"><img class="ue-logo" src="./medias/chinatimes-logo.png" width="136" height="34" alt="中時新聞網"></a>
     <button class="ue-theme-btn" id="ue-theme-btn" onclick="toggleTheme()" aria-label="切換亮色或暗色"></button>
     <h1 class="ue-hero-title">2026美國期中選舉</h1>
     <div class="ue-hero-sub">川普期中考　國會攻防與台海變數</div>

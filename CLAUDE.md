@@ -11,7 +11,7 @@
 /CNAME          自訂網域（Pages 以「Deploy from a branch」部署時生效）
 ```
 ## Hero 左上角
-- BREAKING 英文小字下方放「中時新聞網」LOGO（`medias/chinatimes-logo.png`，200×50 透明背景 PNG）；為了暗色主題也看得清楚，固定放在白色圓角底板上。換 LOGO 直接覆蓋同名檔即可（建議提供 2 倍以上解析度，例如 400×100，畫面會更銳利）
+- BREAKING 英文小字下方放「中時新聞網」LOGO（`medias/chinatimes-logo.png`，200×50 透明背景 PNG）；為了暗色主題也看得清楚，固定放在白色圓角底板上。LOGO 是連結，點擊以同一分頁（`target="_top"`，嵌入 CMS 時整頁）跳轉到 `https://www.chinatimes.com/`，滑過有浮起效果、鍵盤可聚焦。換 LOGO 直接覆蓋同名檔即可（建議提供 2 倍以上解析度，例如 400×100，畫面會更銳利）
 
 ## 署名
 - 頁面最底部（頁尾之下）固定顯示「規劃執行：楊幼蘭、張威翔、栗筱雯」（`index.html` 的 `.ue-credit`）；開票前即時區塊隱藏時也會顯示。要改人名直接改該行文字
