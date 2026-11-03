@@ -1,40 +1,40 @@
 {
   "meta": {
-    "lastUpdated": "2026-11-03T03:16:26-05:00",
-    "reporting": "0918 測試  已開出 52% 選區 ",
+    "lastUpdated": "2026-11-03T03:30:56-05:00",
+    "reporting": "已開出 0% 選區",
     "note": "測試中",
     "source": "美聯社、各州選務委員會",
     "showLive": false
   },
   "senate": {
     "dem": {
-      "seats": 45,
+      "seats": 0,
       "net": -2,
       "label": "民主黨"
     },
     "rep": {
-      "seats": 50,
+      "seats": 0,
       "net": 2,
       "label": "共和黨"
     },
     "ind": {
-      "seats": 2,
+      "seats": 0,
       "net": 0,
       "label": "獨立/其他"
     },
-    "uncalled": 3,
+    "uncalled": 100,
     "total": 100,
     "threshold": 51,
     "currentControl": "?"
   },
   "house": {
     "dem": {
-      "seats": 195,
+      "seats": 0,
       "net": -8,
       "label": "民主黨"
     },
     "rep": {
-      "seats": 222,
+      "seats": 0,
       "net": 8,
       "label": "共和黨"
     },
@@ -43,10 +43,10 @@
       "net": 0,
       "label": "獨立/其他"
     },
-    "uncalled": 18,
+    "uncalled": 435,
     "total": 435,
     "threshold": 218,
-    "currentControl": "R"
+    "currentControl": "?"
   },
   "governor": {
     "dem": {
@@ -116,9 +116,9 @@
       "noRace": true
     },
     "DE": {
-      "winner": "D",
-      "called": true,
-      "margin": 12,
+      "winner": null,
+      "called": false,
+      "margin": null,
       "office": "Senate"
     },
     "FL": {
@@ -147,9 +147,9 @@
       "office": "Senate"
     },
     "IL": {
-      "winner": "D",
-      "called": true,
-      "margin": 15,
+      "winner": null,
+      "called": false,
+      "margin": null,
       "office": "Senate"
     },
     "IN": {
@@ -184,9 +184,9 @@
       "office": "Senate"
     },
     "ME": {
-      "winner": "D",
+      "winner": null,
       "called": false,
-      "margin": 2,
+      "margin": null,
       "office": "Senate"
     },
     "MD": {
@@ -197,9 +197,9 @@
       "noRace": true
     },
     "MA": {
-      "winner": "D",
-      "called": true,
-      "margin": 28,
+      "winner": null,
+      "called": false,
+      "margin": null,
       "office": "Senate"
     },
     "MI": {
@@ -247,13 +247,13 @@
       "noRace": true
     },
     "NH": {
-      "winner": "D",
+      "winner": null,
       "called": false,
-      "margin": 2,
+      "margin": null,
       "office": "Senate"
     },
     "NJ": {
-      "winner": "D",
+      "winner": null,
       "called": false,
       "margin": null,
       "office": "Senate"
@@ -310,15 +310,15 @@
       "noRace": true
     },
     "RI": {
-      "winner": "D",
+      "winner": null,
       "called": false,
       "margin": null,
       "office": "Senate"
     },
     "SC": {
-      "winner": "R",
-      "called": true,
-      "margin": 14,
+      "winner": null,
+      "called": false,
+      "margin": null,
       "office": "Senate"
     },
     "SD": {
@@ -354,9 +354,9 @@
       "noRace": true
     },
     "VA": {
-      "winner": "D",
-      "called": true,
-      "margin": 8,
+      "winner": null,
+      "called": false,
+      "margin": null,
       "office": "Senate"
     },
     "WA": {
