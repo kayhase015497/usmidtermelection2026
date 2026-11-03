@@ -1191,6 +1191,7 @@ function tugHTML(r,i){
   const d=+r.dem.pct||0,p=+r.rep.pct||0,t=d+p,dw=t?d/t*100:50;
   return `<div class="tug" id="tug-${i}"><i class="tD" style="width:${dw}%"><b>${d?d.toFixed(1)+'%':'—'}</b></i><i class="tR" style="width:${100-dw}%"><b>${p?p.toFixed(1)+'%':'—'}</b></i></div>`;
 }
+const SHOW_HOUSE_RACES=false; // 眾議院戰區：暫時隱藏（資料與程式保留；改成 true 即恢復）
 const SHOW_RACE_PCT=false; // 戰區的民主黨／共和黨得票率與拉鋸條：暫時隱藏（資料保留；改成 true 即恢復）
 function raceHTML(r,i){
   const open=i===openRace;
@@ -1228,11 +1229,11 @@ function raceHTML(r,i){
   </div>`;
 }
 function renderRaces(){
-  const list=data.keyRaces.map((r,i)=>({r,i})).filter(x=>raceFilter==='all'||x.r.office===raceFilter);
+  const list=data.keyRaces.map((r,i)=>({r,i})).filter(x=>(SHOW_HOUSE_RACES||x.r.office!=='House')&&(raceFilter==='all'||x.r.office===raceFilter));
   const seg=(v,l)=>`<button type="button" class="opt${raceFilter===v?' sel':''}" onclick="setRaceFilter('${v}')">${l}</button>`;
   $('v-races').innerHTML=`
   <div class="vhead"><h2>⚔️ 關鍵戰區</h2><p>點卡片展開，調整開票進度與結果</p></div>
-  <div class="seg">${seg('all','全部')}${seg('Senate','參議院')}${seg('House','眾議院')}</div>
+  <div class="seg">${seg('all','全部')}${seg('Senate','參議院')}${SHOW_HOUSE_RACES?seg('House','眾議院'):''}</div>
   <button class="gbtn gold block" style="margin-bottom:18px" onclick="openAddRace()">＋ 新增戰區</button>
   ${list.length?list.map(x=>raceHTML(x.r,x.i)).join(''):'<div class="empty"><b>🏳️</b>這裡還沒有戰區<br>按上方「＋ 新增戰區」</div>'}`;
 }
@@ -1278,9 +1279,9 @@ function renderAddSheet(){
   const has=a=>data.keyRaces.some(r=>r.state===a&&r.office===addOffice);
   openSheet(`
   <div class="sh-h"><div class="sh-t"><b>＋ 新增戰區</b></div><button class="gbtn sm sq" onclick="closeSheet()">✕</button></div>
-  <div class="lab">1. 選院別</div>
-  <div class="seg">${seg('Senate','參議院')}${seg('House','眾議院')}</div>
-  <div class="lab">2. 點選州（金框＝已有）</div>
+  ${SHOW_HOUSE_RACES?`<div class="lab">1. 選院別</div>
+  <div class="seg">${seg('Senate','參議院')}${seg('House','眾議院')}</div>`:''}
+  <div class="lab">${SHOW_HOUSE_RACES?'2. ':''}點選州（金框＝已有）</div>
   <div class="tiles">${GRID.map(g=>tileHTML(g[0],`addRace('${g[0]}')`,has(g[0])?'has':'')).join('')}</div>`);
 }
 function addRace(a){
