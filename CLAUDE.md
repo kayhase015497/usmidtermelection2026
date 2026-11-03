@@ -19,7 +19,7 @@
 ## 版面順序
 - 桌機：計分板 → 地圖＋戰區列表 → 圖文區塊（全寬）→ 資訊圖卡（全寬）
 - 手機：計分板 → 地圖 → 圖文區塊 → 資訊圖卡 → 戰區列表
-- 資訊圖卡：`medias/midterm-basics.webp`（寫死在 `index.html` 的 `.ue-info`，換圖直接覆蓋同名檔即可）
+- 資訊圖卡：`medias/midterm-basics.webp`（寫死在 `index.html` 的 `.ue-info`，換圖直接覆蓋同名檔即可，並把 `index.html` 裡圖片網址後面的 `?v=` 版本參數改成新日期（避免讀者瀏覽器沿用舊圖快取）；尺寸維持 2000×1126 時不需改 `width`/`height`）
 
 ## 圖文區塊的報導連結
 - 連結用 `target="_top"` 在同一個分頁跳轉（嵌入 CMS 的 iframe 時，會讓整個 CMS 頁面跳轉，而不是在小框裡開啟）；不加 `noreferrer`，中時站內可看到來源
