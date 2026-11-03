@@ -772,159 +772,19 @@
   ],
   "keyRaces": [
     {
-      "id": "PA-S",
-      "state": "PA",
-      "stateName": "賓夕法尼亞州",
-      "office": "Senate",
-      "dem": {
-        "name": "鮑勃・凱西",
-        "pct": 49.2,
-        "votes": 2841203
-      },
-      "rep": {
-        "name": "大衛・麥科米克",
-        "pct": 50.1,
-        "votes": 2893210
-      },
-      "reporting": 0,
-      "called": false,
-      "winner": null,
-      "competitive": true
-    },
-    {
-      "id": "GA-S",
-      "state": "GA",
-      "stateName": "喬治亞州",
-      "office": "Senate",
-      "dem": {
-        "name": "喬恩・奧索夫",
-        "pct": 49.5,
-        "votes": 2310450
-      },
-      "rep": {
-        "name": "布萊恩・肯普",
-        "pct": 49.9,
-        "votes": 2329000
-      },
-      "reporting": 0,
-      "called": false,
-      "winner": null,
-      "competitive": true
-    },
-    {
-      "id": "NV-S",
-      "state": "NV",
-      "stateName": "內華達州",
-      "office": "Senate",
-      "dem": {
-        "name": "傑奎琳・羅森",
-        "pct": 48.8,
-        "votes": 710230
-      },
-      "rep": {
-        "name": "山姆・布朗",
-        "pct": 50.2,
-        "votes": 730180
-      },
-      "reporting": 0,
-      "called": false,
-      "winner": null,
-      "competitive": true
-    },
-    {
-      "id": "WI-S",
-      "state": "WI",
-      "stateName": "威斯康辛州",
-      "office": "Senate",
-      "dem": {
-        "name": "塔米・鮑德溫",
-        "pct": 50.1,
-        "votes": 1481920
-      },
-      "rep": {
-        "name": "艾瑞克・霍蘭德",
-        "pct": 49.3,
-        "votes": 1458300
-      },
-      "reporting": 0,
-      "called": false,
-      "winner": null,
-      "competitive": true
-    },
-    {
-      "id": "AZ-S",
-      "state": "AZ",
-      "stateName": "亞利桑那州",
-      "office": "Senate",
-      "dem": {
-        "name": "魯本・加列戈",
-        "pct": 48.1,
-        "votes": 1583200
-      },
-      "rep": {
-        "name": "卡里・萊克",
-        "pct": 51.1,
-        "votes": 1681900
-      },
-      "reporting": 0,
-      "called": false,
-      "winner": null,
-      "competitive": true
-    },
-    {
-      "id": "MT-S",
-      "state": "MT",
-      "stateName": "蒙大拿州",
-      "office": "Senate",
-      "dem": {
-        "name": "喬恩・泰斯特",
-        "pct": 46.8,
-        "votes": 225100
-      },
-      "rep": {
-        "name": "提姆・沙伊",
-        "pct": 52.5,
-        "votes": 252300
-      },
-      "reporting": 0,
-      "called": false,
-      "winner": null,
-      "competitive": true
-    },
-    {
       "id": "OH-S",
       "state": "OH",
       "stateName": "俄亥俄州",
       "office": "Senate",
       "dem": {
-        "name": "雪利・布朗",
-        "pct": 47.9,
-        "votes": 2411000
+        "name": "",
+        "pct": 0,
+        "votes": 0
       },
       "rep": {
-        "name": "柏尼・莫雷諾",
-        "pct": 51.4,
-        "votes": 2589000
-      },
-      "reporting": 0,
-      "called": false,
-      "winner": null,
-      "competitive": true
-    },
-    {
-      "id": "NC-S",
-      "state": "NC",
-      "stateName": "北卡羅來納州",
-      "office": "Senate",
-      "dem": {
-        "name": "黛博拉・羅斯",
-        "pct": 48.8,
-        "votes": 2341000
-      },
-      "rep": {
-        "name": "泰德・巴德",
-        "pct": 50.4,
-        "votes": 2419000
+        "name": "",
+        "pct": 0,
+        "votes": 0
       },
       "reporting": 0,
       "called": false,
@@ -937,34 +797,14 @@
       "stateName": "德克薩斯州",
       "office": "Senate",
       "dem": {
-        "name": "科林・艾略特",
-        "pct": 44.1,
-        "votes": 3821000
+        "name": "",
+        "pct": 0,
+        "votes": 0
       },
       "rep": {
-        "name": "約翰・科寧",
-        "pct": 54.2,
-        "votes": 4692000
-      },
-      "reporting": 0,
-      "called": false,
-      "winner": null,
-      "competitive": false
-    },
-    {
-      "id": "MI-S",
-      "state": "MI",
-      "stateName": "密西根州",
-      "office": "Senate",
-      "dem": {
-        "name": "伊蓮娜・史都華",
-        "pct": 49.8,
-        "votes": 2301000
-      },
-      "rep": {
-        "name": "麥克・羅傑斯",
-        "pct": 49.5,
-        "votes": 2287000
+        "name": "",
+        "pct": 0,
+        "votes": 0
       },
       "reporting": 0,
       "called": false,
@@ -972,44 +812,144 @@
       "competitive": true
     },
     {
-      "id": "VA-S",
-      "state": "VA",
-      "stateName": "維吉尼亞州",
+      "id": "MI-S",
+      "state": "MI",
+      "stateName": "密西根州",
       "office": "Senate",
       "dem": {
-        "name": "提姆・肯恩",
-        "pct": 53.4,
-        "votes": 2189000
+        "name": "",
+        "pct": 0,
+        "votes": 0
       },
       "rep": {
-        "name": "克里斯・齊爾斯",
-        "pct": 45.1,
-        "votes": 1851000
+        "name": "",
+        "pct": 0,
+        "votes": 0
       },
       "reporting": 0,
       "called": false,
       "winner": null,
-      "competitive": false
+      "competitive": true
     },
     {
-      "id": "CO-S",
-      "state": "CO",
-      "stateName": "科羅拉多州",
+      "id": "NC-S",
+      "state": "NC",
+      "stateName": "北卡羅來納州",
       "office": "Senate",
       "dem": {
-        "name": "約翰・希克盧珀",
-        "pct": 52.3,
-        "votes": 1431000
+        "name": "",
+        "pct": 0,
+        "votes": 0
       },
       "rep": {
-        "name": "喬・奧頓",
-        "pct": 46.1,
-        "votes": 1261000
+        "name": "",
+        "pct": 0,
+        "votes": 0
       },
       "reporting": 0,
       "called": false,
       "winner": null,
-      "competitive": false
+      "competitive": true
+    },
+    {
+      "id": "GA-S",
+      "state": "GA",
+      "stateName": "喬治亞州",
+      "office": "Senate",
+      "dem": {
+        "name": "",
+        "pct": 0,
+        "votes": 0
+      },
+      "rep": {
+        "name": "",
+        "pct": 0,
+        "votes": 0
+      },
+      "reporting": 0,
+      "called": false,
+      "winner": null,
+      "competitive": true
+    },
+    {
+      "id": "ME-S",
+      "state": "ME",
+      "stateName": "緬因州",
+      "office": "Senate",
+      "dem": {
+        "name": "",
+        "pct": 0,
+        "votes": 0
+      },
+      "rep": {
+        "name": "",
+        "pct": 0,
+        "votes": 0
+      },
+      "reporting": 0,
+      "called": false,
+      "winner": null,
+      "competitive": true
+    },
+    {
+      "id": "IA-S",
+      "state": "IA",
+      "stateName": "愛荷華州",
+      "office": "Senate",
+      "dem": {
+        "name": "",
+        "pct": 0,
+        "votes": 0
+      },
+      "rep": {
+        "name": "",
+        "pct": 0,
+        "votes": 0
+      },
+      "reporting": 0,
+      "called": false,
+      "winner": null,
+      "competitive": true
+    },
+    {
+      "id": "AK-S",
+      "state": "AK",
+      "stateName": "阿拉斯加州",
+      "office": "Senate",
+      "dem": {
+        "name": "",
+        "pct": 0,
+        "votes": 0
+      },
+      "rep": {
+        "name": "",
+        "pct": 0,
+        "votes": 0
+      },
+      "reporting": 0,
+      "called": false,
+      "winner": null,
+      "competitive": true
+    },
+    {
+      "id": "NH-S",
+      "state": "NH",
+      "stateName": "新罕布夏州",
+      "office": "Senate",
+      "dem": {
+        "name": "",
+        "pct": 0,
+        "votes": 0
+      },
+      "rep": {
+        "name": "",
+        "pct": 0,
+        "votes": 0
+      },
+      "reporting": 0,
+      "called": false,
+      "winner": null,
+      "competitive": true
     },
     {
       "id": "CO-5-H",
