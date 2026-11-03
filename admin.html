@@ -1191,6 +1191,7 @@ function tugHTML(r,i){
   const d=+r.dem.pct||0,p=+r.rep.pct||0,t=d+p,dw=t?d/t*100:50;
   return `<div class="tug" id="tug-${i}"><i class="tD" style="width:${dw}%"><b>${d?d.toFixed(1)+'%':'—'}</b></i><i class="tR" style="width:${100-dw}%"><b>${p?p.toFixed(1)+'%':'—'}</b></i></div>`;
 }
+const SHOW_RACE_PCT=false; // 戰區的民主黨／共和黨得票率與拉鋸條：暫時隱藏（資料保留；改成 true 即恢復）
 function raceHTML(r,i){
   const open=i===openRace;
   const rep=clamp(+r.reporting||0,0,100);
@@ -1210,11 +1211,11 @@ function raceHTML(r,i){
       <span id="rc-${i}">${raceChip(r)}</span>
       <span class="chev">▾</span>
     </button>
-    ${tugHTML(r,i)}
+    ${SHOW_RACE_PCT?tugHTML(r,i):''}
     ${open?`
-    <div class="race-b">
-      <div class="vs">${side('dem','sd','民主黨')}${side('rep','sr','共和黨')}</div>
-      <div class="lab">開票進度</div>
+    <div class="race-b"${SHOW_RACE_PCT?'':' style="border-top:3px solid var(--ink)"'}>
+      ${SHOW_RACE_PCT?`<div class="vs">${side('dem','sd','民主黨')}${side('rep','sr','共和黨')}</div>`:''}
+      <div class="lab" ${SHOW_RACE_PCT?'':'style="margin-top:0"'}>開票進度</div>
       <div class="xp-row">
         <input type="range" class="xp" min="0" max="100" value="${rep}" style="--p:${rep}%" oninput="setRaceReporting(${i},this.value)">
         <div class="xp-val" id="rr-${i}">${rep}%</div>
@@ -1230,7 +1231,7 @@ function renderRaces(){
   const list=data.keyRaces.map((r,i)=>({r,i})).filter(x=>raceFilter==='all'||x.r.office===raceFilter);
   const seg=(v,l)=>`<button type="button" class="opt${raceFilter===v?' sel':''}" onclick="setRaceFilter('${v}')">${l}</button>`;
   $('v-races').innerHTML=`
-  <div class="vhead"><h2>⚔️ 關鍵戰區</h2><p>點卡片展開編輯得票率與結果</p></div>
+  <div class="vhead"><h2>⚔️ 關鍵戰區</h2><p>點卡片展開，調整開票進度與結果</p></div>
   <div class="seg">${seg('all','全部')}${seg('Senate','參議院')}${seg('House','眾議院')}</div>
   <button class="gbtn gold block" style="margin-bottom:18px" onclick="openAddRace()">＋ 新增戰區</button>
   ${list.length?list.map(x=>raceHTML(x.r,x.i)).join(''):'<div class="empty"><b>🏳️</b>這裡還沒有戰區<br>按上方「＋ 新增戰區」</div>'}`;
@@ -1294,7 +1295,7 @@ function addRace(a){
   openRace=data.keyRaces.length-1;raceFilter='all';
   markDirty();closeSheet();goTab('races');renderRaces();
   setTimeout(()=>{const e=$('race-'+openRace);e&&e.scrollIntoView({behavior:'smooth',block:'center'})},60);
-  toast('已新增，請填入得票率','ok');
+  toast('已新增，請設定開票進度與結果','ok');
 }
 
 /* ═══════════ STORIES (圖文內容) ═══════════ */

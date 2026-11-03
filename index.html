@@ -1298,6 +1298,7 @@ window.addEventListener('resize', () => {
   if (electionData) renderRaceList();
 });
 
+const SHOW_RACE_PCT = false; // 戰區的民主黨／共和黨得票率與比例條：暫時隱藏（資料保留；改成 true 即恢復）
 function raceItemHTML(r) {
   const dPct = r.dem ? r.dem.pct : 0;
   const rPct = r.rep ? r.rep.pct : 0;
@@ -1330,7 +1331,7 @@ function raceItemHTML(r) {
         ${statusBadge}
       </div>
     </div>
-    <div style="margin-top:6px;">
+    ${SHOW_RACE_PCT ? `<div style="margin-top:6px;">
       <div style="display:flex;justify-content:space-between;font-family:var(--ff-label);font-size:13px;margin-bottom:5px;">
         <span style="color:var(--c-dem)">${dLabel}</span>
         <span style="color:var(--c-rep)">${rLabel}</span>
@@ -1339,7 +1340,7 @@ function raceItemHTML(r) {
         <div class="ue-bar-d" style="width:${dBar}%"></div>
         <div class="ue-bar-r" style="width:${rBar}%;margin-left:auto"></div>
       </div>
-    </div>
+    </div>` : ''}
     ${r.reporting ? `<div class="ue-pct-reporting">${r.reporting}% 選區已開出</div>` : ''}
   </div>`;
 }
