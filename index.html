@@ -386,6 +386,7 @@ html[data-font="c"]{
 .ue-tabs{
   display:flex;border-bottom:1px solid var(--c-border);
 }
+.ue-tab[hidden]{display:none;}
 .ue-tab{
   flex:1;padding:13px 8px;text-align:center;cursor:pointer;
   font-family:var(--ff-label);font-size:var(--fs-sm);letter-spacing:1px;
@@ -611,7 +612,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="ue-race-panel" data-anchor="race">
       <div class="ue-tabs">
         <div class="ue-tab active" data-tab="senate" onclick="switchTab('senate')">參議院</div>
-        <div class="ue-tab" data-tab="house" onclick="switchTab('house')">眾議院</div>
+        <div class="ue-tab" id="ue-tab-house" data-tab="house" onclick="switchTab('house')">眾議院</div>
       </div>
       <div class="ue-filter-row">
         <button class="ue-filter-btn active" data-filter="all" onclick="setFilter('all',this)">全部</button>
@@ -1275,6 +1276,9 @@ function setFilter(filter, btn) {
 
 function renderRaceList() {
   if (!electionData) return;
+  const ht = document.getElementById('ue-tab-house');
+  if (ht) ht.hidden = !SHOW_HOUSE_RACES;
+  if (!SHOW_HOUSE_RACES && currentTab === 'house') currentTab = 'senate';
   const list = document.getElementById('ue-race-list');
   let races = electionData.keyRaces || [];
 
@@ -1320,6 +1324,7 @@ window.addEventListener('resize', () => {
   if (electionData) renderRaceList();
 });
 
+const SHOW_HOUSE_RACES = false; // 眾議院戰區（搖擺選區）：暫時隱藏（資料與程式保留；改成 true 即恢復）
 const SHOW_RACE_PCT = false; // 戰區的民主黨／共和黨得票率與比例條：暫時隱藏（資料保留；改成 true 即恢復）
 function raceItemHTML(r) {
   const dPct = r.dem ? r.dem.pct : 0;
