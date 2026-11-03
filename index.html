@@ -240,7 +240,7 @@ html[data-font="c"]{
 .ue-main{
   display:grid;
   grid-template-columns:minmax(0,1fr);
-  grid-template-areas:"map" "stories" "info" "race";
+  grid-template-areas:"map" "race" "info" "stories";
   gap:14px;padding:14px 18px 18px;
 }
 .ue-map-panel{grid-area:map;}
@@ -257,7 +257,7 @@ html[data-font="c"]{
 .ue-prelive .ue-race-panel,.ue-prelive .ue-foot{display:none;}
 .ue-prelive .ue-main{grid-template-columns:minmax(0,1fr);grid-template-areas:"info" "stories";}
 @media(min-width:900px){
-  .ue-main{grid-template-columns:minmax(0,1fr) 440px;grid-template-areas:"map race" "stories stories" "info info";}
+  .ue-main{grid-template-columns:minmax(0,1fr) 440px;grid-template-areas:"map race" "info info" "stories stories";}
 }
 @media(min-width:1200px){
   .ue-main{grid-template-columns:minmax(0,1fr) 480px;}
