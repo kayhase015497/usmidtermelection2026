@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-11-03T10:12:16-05:00",
+    "lastUpdated": "2026-11-03T11:17:32-05:00",
     "reporting": "已開出 0% 選區",
     "note": "即將開票",
     "source": "美聯社、各州選務委員會",
@@ -679,6 +679,10 @@
       "text": "最新民調與席次預測｜川普執政下的兩黨勝算",
       "src": "medias/poll2-mvc6awvi.mp4",
       "links": [
+        {
+          "url": "https://www.chinatimes.com/realtimenews/20261104000052-260408?chdtv",
+          "title": "美期中選舉》投票前夕選民最關心什麼？民調曝9大主題"
+        },
         {
           "url": "https://www.chinatimes.com/realtimenews/20261101001739-260408",
           "title": "美國人不信民調！ 共和黨嗆被低估 誓用選票證明「選民才是對的」"
