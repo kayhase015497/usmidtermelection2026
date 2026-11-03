@@ -611,7 +611,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- Race Panel -->
     <div class="ue-race-panel" data-anchor="race">
       <div class="ue-tabs">
-        <div class="ue-tab active" data-tab="senate" onclick="switchTab('senate')">參議院</div>
+        <div class="ue-tab active" data-tab="senate" onclick="switchTab('senate')">關鍵搖擺州 - 參議院</div>
         <div class="ue-tab" id="ue-tab-house" data-tab="house" onclick="switchTab('house')">眾議院</div>
       </div>
       <div class="ue-filter-row">
@@ -1303,11 +1303,15 @@ function renderRaceList() {
   fitRaceList(races.length);
 }
 
-const RACE_VISIBLE = 4;
+const RACE_VISIBLE_DESKTOP = 9, RACE_VISIBLE_MOBILE = 4; // 桌機一次顯示 9 場（超過才捲動）、手機 4 場
+const raceMQ = window.matchMedia('(min-width:900px)');
+const raceVisible = () => raceMQ.matches ? RACE_VISIBLE_DESKTOP : RACE_VISIBLE_MOBILE;
+raceMQ.addEventListener('change', () => renderRaceList());
 function fitRaceList(total) {
   const list = document.getElementById('ue-race-list');
   const more = document.getElementById('ue-race-more');
   const items = list.querySelectorAll('.ue-race-item');
+  const RACE_VISIBLE = raceVisible();
   if (total <= RACE_VISIBLE) {
     list.style.maxHeight = '';
     more.hidden = true;
