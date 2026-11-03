@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-11-03T03:32:52-05:00",
+    "lastUpdated": "2026-11-03T03:33:51-05:00",
     "reporting": "已開出 0% 選區",
     "note": "即將開票",
     "source": "美聯社、各州選務委員會",
@@ -786,7 +786,7 @@
         "pct": 50.1,
         "votes": 2893210
       },
-      "reporting": 84,
+      "reporting": 0,
       "called": false,
       "winner": null,
       "competitive": true
@@ -806,7 +806,7 @@
         "pct": 49.9,
         "votes": 2329000
       },
-      "reporting": 72,
+      "reporting": 0,
       "called": false,
       "winner": null,
       "competitive": true
@@ -826,7 +826,7 @@
         "pct": 50.2,
         "votes": 730180
       },
-      "reporting": 61,
+      "reporting": 0,
       "called": false,
       "winner": null,
       "competitive": true
@@ -846,7 +846,7 @@
         "pct": 49.3,
         "votes": 1458300
       },
-      "reporting": 78,
+      "reporting": 0,
       "called": false,
       "winner": null,
       "competitive": true
@@ -866,9 +866,9 @@
         "pct": 51.1,
         "votes": 1681900
       },
-      "reporting": 95,
-      "called": true,
-      "winner": "R",
+      "reporting": 0,
+      "called": false,
+      "winner": null,
       "competitive": true
     },
     {
@@ -886,9 +886,9 @@
         "pct": 52.5,
         "votes": 252300
       },
-      "reporting": 98,
-      "called": true,
-      "winner": "R",
+      "reporting": 0,
+      "called": false,
+      "winner": null,
       "competitive": true
     },
     {
@@ -906,9 +906,9 @@
         "pct": 51.4,
         "votes": 2589000
       },
-      "reporting": 99,
-      "called": true,
-      "winner": "R",
+      "reporting": 0,
+      "called": false,
+      "winner": null,
       "competitive": true
     },
     {
@@ -926,7 +926,7 @@
         "pct": 50.4,
         "votes": 2419000
       },
-      "reporting": 82,
+      "reporting": 0,
       "called": false,
       "winner": null,
       "competitive": true
@@ -946,9 +946,9 @@
         "pct": 54.2,
         "votes": 4692000
       },
-      "reporting": 91,
-      "called": true,
-      "winner": "R",
+      "reporting": 0,
+      "called": false,
+      "winner": null,
       "competitive": false
     },
     {
@@ -966,7 +966,7 @@
         "pct": 49.5,
         "votes": 2287000
       },
-      "reporting": 55,
+      "reporting": 0,
       "called": false,
       "winner": null,
       "competitive": true
@@ -986,9 +986,9 @@
         "pct": 45.1,
         "votes": 1851000
       },
-      "reporting": 88,
-      "called": true,
-      "winner": "D",
+      "reporting": 0,
+      "called": false,
+      "winner": null,
       "competitive": false
     },
     {
@@ -1006,9 +1006,9 @@
         "pct": 46.1,
         "votes": 1261000
       },
-      "reporting": 79,
-      "called": true,
-      "winner": "D",
+      "reporting": 0,
+      "called": false,
+      "winner": null,
       "competitive": false
     }
   ]
