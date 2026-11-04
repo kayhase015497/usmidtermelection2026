@@ -72,14 +72,14 @@
   "states": {
     "AL": {
       "winner": "R",
-      "called": false,
-      "margin": 25.4,
+      "called": true,
+      "margin": 9.4,
       "office": "Senate"
     },
     "AK": {
-      "winner": "I",
+      "winner": "D",
       "called": false,
-      "margin": null,
+      "margin": 0.2,
       "office": "Senate"
     },
     "AZ": {
@@ -91,8 +91,8 @@
     },
     "AR": {
       "winner": "R",
-      "called": false,
-      "margin": 4.3,
+      "called": true,
+      "margin": 11.9,
       "office": "Senate"
     },
     "CA": {
@@ -105,7 +105,7 @@
     "CO": {
       "winner": "D",
       "called": true,
-      "margin": 26,
+      "margin": 25.1,
       "office": "Senate"
     },
     "CT": {
@@ -118,19 +118,19 @@
     "DE": {
       "winner": "D",
       "called": true,
-      "margin": 30.4,
+      "margin": 27.2,
       "office": "Senate"
     },
     "FL": {
       "winner": "R",
       "called": true,
-      "margin": 3,
+      "margin": 2.9,
       "office": "Senate"
     },
     "GA": {
       "winner": "D",
       "called": true,
-      "margin": 19.2,
+      "margin": 17.8,
       "office": "Senate"
     },
     "HI": {
@@ -142,14 +142,14 @@
     },
     "ID": {
       "winner": "R",
-      "called": false,
-      "margin": null,
+      "called": true,
+      "margin": 21.3,
       "office": "Senate"
     },
     "IL": {
       "winner": "D",
       "called": true,
-      "margin": 29.3,
+      "margin": 23.5,
       "office": "Senate"
     },
     "IN": {
@@ -161,32 +161,32 @@
     },
     "IA": {
       "winner": "D",
-      "called": false,
-      "margin": 24.3,
+      "called": true,
+      "margin": 3.9,
       "office": "Senate"
     },
     "KS": {
       "winner": "D",
-      "called": false,
-      "margin": 19.4,
+      "called": true,
+      "margin": 4.8,
       "office": "Senate"
     },
     "KY": {
       "winner": "R",
       "called": true,
-      "margin": 9.5,
+      "margin": 12.1,
       "office": "Senate"
     },
     "LA": {
       "winner": "R",
-      "called": false,
-      "margin": 10.2,
+      "called": true,
+      "margin": 1.8,
       "office": "Senate"
     },
     "ME": {
-      "winner": "R",
-      "called": false,
-      "margin": 2.1,
+      "winner": "D",
+      "called": true,
+      "margin": 7.8,
       "office": "Senate"
     },
     "MD": {
@@ -199,25 +199,25 @@
     "MA": {
       "winner": "D",
       "called": true,
-      "margin": 48.9,
+      "margin": 32.1,
       "office": "Senate"
     },
     "MI": {
       "winner": "D",
       "called": false,
-      "margin": 12.2,
+      "margin": 5.6,
       "office": "Senate"
     },
     "MN": {
-      "winner": "R",
-      "called": false,
-      "margin": 26.9,
+      "winner": "D",
+      "called": true,
+      "margin": 10.3,
       "office": "Senate"
     },
     "MS": {
-      "winner": "R",
+      "winner": "D",
       "called": false,
-      "margin": 9.1,
+      "margin": 0,
       "office": "Senate"
     },
     "MO": {
@@ -230,13 +230,13 @@
     "MT": {
       "winner": "R",
       "called": false,
-      "margin": null,
+      "margin": 8.1,
       "office": "Senate"
     },
     "NE": {
-      "winner": "I",
+      "winner": "R",
       "called": false,
-      "margin": 19.2,
+      "margin": 4.6,
       "office": "Senate"
     },
     "NV": {
@@ -249,19 +249,19 @@
     "NH": {
       "winner": "D",
       "called": true,
-      "margin": 17.2,
+      "margin": 14.1,
       "office": "Senate"
     },
     "NJ": {
       "winner": "D",
       "called": true,
-      "margin": 32.2,
+      "margin": 27.2,
       "office": "Senate"
     },
     "NM": {
       "winner": "D",
       "called": true,
-      "margin": 39,
+      "margin": 26.4,
       "office": "Senate"
     },
     "NY": {
@@ -274,7 +274,7 @@
     "NC": {
       "winner": "D",
       "called": true,
-      "margin": 21.1,
+      "margin": 19.6,
       "office": "Senate"
     },
     "ND": {
@@ -286,20 +286,20 @@
     },
     "OH": {
       "winner": "D",
-      "called": false,
-      "margin": 3.5,
+      "called": true,
+      "margin": 4,
       "office": "Senate"
     },
     "OK": {
       "winner": "R",
       "called": true,
-      "margin": 24,
+      "margin": 18.1,
       "office": "Senate"
     },
     "OR": {
       "winner": "D",
       "called": true,
-      "margin": null,
+      "margin": 16.4,
       "office": "Senate"
     },
     "PA": {
@@ -312,31 +312,31 @@
     "RI": {
       "winner": "D",
       "called": true,
-      "margin": 36.9,
+      "margin": 37.1,
       "office": "Senate"
     },
     "SC": {
       "winner": "D",
-      "called": false,
-      "margin": 4.5,
+      "called": true,
+      "margin": 4.4,
       "office": "Senate"
     },
     "SD": {
       "winner": "R",
-      "called": false,
-      "margin": 28.2,
+      "called": true,
+      "margin": 22.4,
       "office": "Senate"
     },
     "TN": {
       "winner": "R",
-      "called": false,
-      "margin": 6.9,
+      "called": true,
+      "margin": 12.2,
       "office": "Senate"
     },
     "TX": {
       "winner": "D",
-      "called": false,
-      "margin": 20.3,
+      "called": true,
+      "margin": 9.8,
       "office": "Senate"
     },
     "UT": {
@@ -356,7 +356,7 @@
     "VA": {
       "winner": "D",
       "called": true,
-      "margin": 18.1,
+      "margin": 22.1,
       "office": "Senate"
     },
     "WA": {
@@ -369,7 +369,7 @@
     "WV": {
       "winner": "R",
       "called": true,
-      "margin": 19.3,
+      "margin": 20.4,
       "office": "Senate"
     },
     "WI": {
@@ -382,7 +382,7 @@
     "WY": {
       "winner": "R",
       "called": true,
-      "margin": 56.4,
+      "margin": 30.4,
       "office": "Senate"
     }
   },
@@ -887,8 +887,8 @@
         "votes": 0
       },
       "reporting": 86,
-      "called": true,
-      "winner": "D",
+      "called": false,
+      "winner": null,
       "competitive": true
     },
     {
@@ -987,8 +987,8 @@
         "votes": 0
       },
       "reporting": 59,
-      "called": true,
-      "winner": "D",
+      "called": false,
+      "winner": null,
       "competitive": true
     },
     {
