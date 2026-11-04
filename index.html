@@ -289,6 +289,10 @@ html[data-font="c"]{
   border:1px solid var(--c-none-line);
 }
 .ue-leg-swatch{width:12px;height:12px;border-radius:2px;}
+.ue-leg-flip{background:repeating-linear-gradient(-45deg,var(--c-dem) 0 3px,rgba(255,255,255,.75) 3px 5px);}
+.ue-flip-ov{pointer-events:none;stroke:none;}
+.ue-tt-flip,.ue-flip-note{font-family:var(--ff-label);font-weight:700;color:var(--c-accent);}
+.ue-tt-flip{font-size:var(--fs-mono);margin-top:3px;}
 #ue-map-svg{width:100%;height:auto;display:block;cursor:pointer;}
 .ue-map-note{
   padding:10px 16px;font-family:var(--ff-label);font-size:var(--fs-mono);
@@ -601,6 +605,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="ue-leg-item"><div class="ue-leg-swatch" style="background:var(--c-dem)"></div>民主黨勝</div>
           <div class="ue-leg-item"><div class="ue-leg-swatch" style="background:var(--c-rep)"></div>共和黨勝</div>
           <div class="ue-leg-item"><div class="ue-leg-swatch" style="background:var(--c-unc)"></div>未決定</div>
+          <div class="ue-leg-item" id="ue-leg-flip" hidden><div class="ue-leg-swatch ue-leg-flip"></div>翻盤席次</div>
           <div class="ue-leg-item"><div class="ue-leg-swatch ue-leg-none"></div>本屆無參議員選舉</div>
         </div>
       </div>
@@ -1148,6 +1153,12 @@ function loadTopoJSON() {
     });
 }
 
+const PARTY_ZH = { D: '民主黨', R: '共和黨', I: '獨立人士' };
+// 翻盤席次：已確定、且勝方不是原持有黨（data.json 的 states[abbr].flip = 原持有黨 'R'|'D'）
+function flipText(st) {
+  if (!st || !st.called || !st.winner || !st.flip || st.flip === st.winner) return '';
+  return `${PARTY_ZH[st.flip] || st.flip} → ${PARTY_ZH[st.winner] || st.winner}　翻盤席次`;
+}
 function setHatch() {
   const svg = document.getElementById('ue-map-svg');
   const pat = svg && svg.querySelector('#ue-hatch');
@@ -1157,6 +1168,12 @@ function setHatch() {
   pat.setAttribute('width', size); pat.setAttribute('height', size);
   pat.querySelector('.hb').setAttribute('width', size); pat.querySelector('.hb').setAttribute('height', size);
   pat.querySelector('.hl').setAttribute('width', size * 0.3); pat.querySelector('.hl').setAttribute('height', size);
+  const fp = svg.querySelector('#ue-flip');
+  if (fp) {
+    const fs = 8 / k;
+    fp.setAttribute('width', fs); fp.setAttribute('height', fs);
+    fp.querySelector('.fl').setAttribute('width', fs * 0.3); fp.querySelector('.fl').setAttribute('height', fs);
+  }
 }
 window.addEventListener('resize', setHatch);
 function drawMap() {
@@ -1175,6 +1192,10 @@ function drawMap() {
     .attr('patternUnits', 'userSpaceOnUse').attr('patternTransform', 'rotate(45)');
   pat.append('rect').attr('class', 'hb').style('fill', 'var(--c-none-bg)');
   pat.append('rect').attr('class', 'hl').style('fill', 'var(--c-none-line)');
+  // 翻盤席次：疊在黨色上的白色斜線（方向與「無選舉」相反）
+  const fpat = svg.select('defs').append('pattern').attr('id', 'ue-flip')
+    .attr('patternUnits', 'userSpaceOnUse').attr('patternTransform', 'rotate(-45)');
+  fpat.append('rect').attr('class', 'fl').style('fill', 'rgba(255,255,255,.75)');
   setHatch();
 
   svg.selectAll('.ue-state')
@@ -1214,6 +1235,16 @@ function drawMap() {
       if (abbr) showStateModal(abbr);
     });
 
+  // 翻盤席次斜線（只疊在已確定且黨籍翻轉的州）
+  const flipped = states.features.filter(f => {
+    const ab = FIPS[String(f.id).padStart(2,'0')];
+    return ab && flipText(electionData.states[ab]);
+  });
+  svg.selectAll('.ue-flip-ov').data(flipped).join('path')
+    .attr('class', 'ue-flip-ov').attr('d', path).attr('fill', 'url(#ue-flip)');
+  const lf = document.getElementById('ue-leg-flip');
+  if (lf) lf.hidden = flipped.length === 0;
+
   // State borders
   svg.append('path')
     .datum(mesh)
@@ -1248,6 +1279,7 @@ function showTooltip(event, abbr, st) {
     <div class="ue-tt-state">${abbr} · ${name}</div>
     <div class="ue-tt-winner ${winnerClass}">${winnerText}</div>
     ${marginText ? `<div class="ue-tt-pct">${marginText}</div>` : ''}
+    ${flipText(st) ? `<div class="ue-tt-flip">${flipText(st)}</div>` : ''}
     <div class="ue-tt-pct" style="margin-top:4px;">點擊查看詳細</div>
   `;
   tooltip.style.left = event.clientX + 'px';
@@ -1402,6 +1434,7 @@ function showStateModal(abbr) {
         <div>
           <div style="font-family:var(--ff-label);font-size:13px;color:var(--c-muted);margin-bottom:6px;">選舉結果</div>
           <div style="font-size:20px;font-weight:700;color:${wColor}">${wText}</div>
+          ${flipText(st) ? `<div class="ue-flip-note" style="font-size:15px;margin-top:6px;">${flipText(st)}</div>` : ''}
         </div>
         ${st.margin ? `<div style="text-align:right;"><div style="font-family:var(--ff-label);font-size:13px;color:var(--c-muted);margin-bottom:6px;">領先差距</div><div style="font-family:var(--ff-label);font-size:24px;font-weight:700;color:${wColor}">${st.margin.toFixed(1)}%</div></div>` : ''}
       </div>`;
