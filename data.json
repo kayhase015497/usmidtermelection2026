@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-11-04T00:44:53-05:00",
+    "lastUpdated": "2026-11-04T00:46:49-05:00",
     "reporting": "已開出 0% 選區",
     "note": "即將開票",
     "source": "美聯社、各州選務委員會",
@@ -77,7 +77,7 @@
       "office": "Senate"
     },
     "AK": {
-      "winner": null,
+      "winner": "D",
       "called": false,
       "margin": null,
       "office": "Senate"
@@ -141,7 +141,7 @@
       "noRace": true
     },
     "ID": {
-      "winner": null,
+      "winner": "R",
       "called": false,
       "margin": null,
       "office": "Senate"
@@ -297,8 +297,8 @@
       "office": "Senate"
     },
     "OR": {
-      "winner": null,
-      "called": false,
+      "winner": "D",
+      "called": true,
       "margin": null,
       "office": "Senate"
     },
