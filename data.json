@@ -887,8 +887,8 @@
         "votes": 0
       },
       "reporting": 86,
-      "called": false,
-      "winner": null,
+      "called": true,
+      "winner": "D",
       "competitive": true
     },
     {
@@ -987,8 +987,8 @@
         "votes": 0
       },
       "reporting": 59,
-      "called": false,
-      "winner": null,
+      "called": true,
+      "winner": "D",
       "competitive": true
     },
     {
