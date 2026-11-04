@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-11-03T21:55:49-05:00",
+    "lastUpdated": "2026-11-03T21:57:15-05:00",
     "reporting": "已開出 0% 選區",
     "note": "即將開票",
     "source": "美聯社、各州選務委員會",
@@ -882,7 +882,7 @@
         "pct": 0,
         "votes": 0
       },
-      "reporting": 85,
+      "reporting": 86,
       "called": true,
       "winner": "D",
       "competitive": true
@@ -902,7 +902,7 @@
         "pct": 0,
         "votes": 0
       },
-      "reporting": 75,
+      "reporting": 85,
       "called": true,
       "winner": "D",
       "competitive": true
@@ -922,7 +922,7 @@
         "pct": 0,
         "votes": 0
       },
-      "reporting": 9,
+      "reporting": 16,
       "called": false,
       "winner": null,
       "competitive": true
@@ -942,7 +942,7 @@
         "pct": 0,
         "votes": 0
       },
-      "reporting": 21,
+      "reporting": 27,
       "called": false,
       "winner": null,
       "competitive": true
@@ -982,7 +982,7 @@
         "pct": 0,
         "votes": 0
       },
-      "reporting": 43,
+      "reporting": 51,
       "called": true,
       "winner": "D",
       "competitive": true
