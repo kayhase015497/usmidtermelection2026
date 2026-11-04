@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-11-04T02:09:20-05:00",
+    "lastUpdated": "2026-11-04T02:13:03-05:00",
     "reporting": "已開出 65% 選區",
     "note": "即將開票",
     "source": "美聯社、各州選務委員會",
@@ -974,7 +974,7 @@
         "pct": 0,
         "votes": 0
       },
-      "reporting": 22,
+      "reporting": 59,
       "called": true,
       "winner": "D",
       "competitive": true
