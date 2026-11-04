@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-11-03T20:48:20-05:00",
+    "lastUpdated": "2026-11-03T20:48:43-05:00",
     "reporting": "已開出 0% 選區",
     "note": "即將開票",
     "source": "美聯社、各州選務委員會",
@@ -29,12 +29,12 @@
   },
   "house": {
     "dem": {
-      "seats": 43,
+      "seats": 47,
       "net": -8,
       "label": "民主黨"
     },
     "rep": {
-      "seats": 19,
+      "seats": 21,
       "net": 8,
       "label": "共和黨"
     },
@@ -43,7 +43,7 @@
       "net": 0,
       "label": "獨立/其他"
     },
-    "uncalled": 373,
+    "uncalled": 367,
     "total": 435,
     "threshold": 218,
     "currentControl": "?"
