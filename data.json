@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-11-04T04:18:39-05:00",
+    "lastUpdated": "2026-11-04T04:19:47-05:00",
     "reporting": "已開出 65% 選區",
     "note": "開票進行中",
     "source": "美聯社、各州選務委員會",
@@ -204,8 +204,8 @@
     },
     "MI": {
       "winner": "D",
-      "called": false,
-      "margin": 5.6,
+      "called": true,
+      "margin": 6.4,
       "office": "Senate"
     },
     "MN": {
@@ -894,7 +894,7 @@
         "pct": 0,
         "votes": 0
       },
-      "reporting": 86,
+      "reporting": 93,
       "called": true,
       "winner": "D",
       "competitive": true
