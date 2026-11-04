@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-11-03T20:40:05-05:00",
+    "lastUpdated": "2026-11-03T20:48:20-05:00",
     "reporting": "已開出 0% 選區",
     "note": "即將開票",
     "source": "美聯社、各州選務委員會",
@@ -116,19 +116,19 @@
       "noRace": true
     },
     "DE": {
-      "winner": null,
+      "winner": "D",
       "called": false,
       "margin": null,
       "office": "Senate"
     },
     "FL": {
-      "winner": null,
+      "winner": "R",
       "called": false,
       "margin": null,
       "office": "Senate"
     },
     "GA": {
-      "winner": null,
+      "winner": "D",
       "called": false,
       "margin": null,
       "office": "Senate"
@@ -147,7 +147,7 @@
       "office": "Senate"
     },
     "IL": {
-      "winner": null,
+      "winner": "D",
       "called": false,
       "margin": null,
       "office": "Senate"
@@ -197,7 +197,7 @@
       "noRace": true
     },
     "MA": {
-      "winner": null,
+      "winner": "D",
       "called": false,
       "margin": null,
       "office": "Senate"
@@ -247,13 +247,13 @@
       "noRace": true
     },
     "NH": {
-      "winner": null,
+      "winner": "D",
       "called": false,
       "margin": null,
       "office": "Senate"
     },
     "NJ": {
-      "winner": null,
+      "winner": "D",
       "called": false,
       "margin": null,
       "office": "Senate"
@@ -316,7 +316,7 @@
       "office": "Senate"
     },
     "SC": {
-      "winner": null,
+      "winner": "D",
       "called": false,
       "margin": null,
       "office": "Senate"
@@ -354,7 +354,7 @@
       "noRace": true
     },
     "VA": {
-      "winner": null,
+      "winner": "D",
       "called": false,
       "margin": null,
       "office": "Senate"
