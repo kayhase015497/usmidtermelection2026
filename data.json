@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-11-04T06:05:33-05:00",
+    "lastUpdated": "2026-11-04T06:08:17-05:00",
     "reporting": "已開出 65% 選區",
     "note": "開票進行中",
     "source": "美聯社、各州選務委員會",
@@ -229,8 +229,8 @@
     },
     "MT": {
       "winner": "R",
-      "called": false,
-      "margin": 8.1,
+      "called": true,
+      "margin": 10.1,
       "office": "Senate"
     },
     "NE": {
