@@ -726,7 +726,7 @@ function mergeList(B0,L0,R0,path,kf,ctx){
   return order.filter(i=>out.has(i)).map(i=>out.get(i));
 }
 
-const FIELD_ZH={hidden:'前台顯示',title:'標題',text:'文字說明',src:'影片／圖片',winner:'誰贏',called:'是否確定',margin:'領先差距',noRace:'本屆無選舉',pct:'得票率',reporting:'開票進度',competitive:'激烈戰區',seats:'席次',net:'增減',url:'網址',stateName:'州名',office:'院別',votes:'票數',name:'名稱'};
+const FIELD_ZH={hidden:'前台顯示',title:'標題',text:'文字說明',src:'影片／圖片',winner:'誰贏',called:'是否確定',margin:'領先差距',noRace:'本屆無選舉',flip:'翻盤',pct:'得票率',reporting:'開票進度',competitive:'激烈戰區',seats:'席次',net:'增減',url:'網址',stateName:'州名',office:'院別',votes:'票數',name:'名稱'};
 const PARTY_ZH={dem:'民主黨',rep:'共和黨',ind:'獨立／其他'};
 const META_ZH={reporting:'開票進度文字',source:'資料來源',note:'頁面底部備註',showLive:'顯示即時開票區塊'};
 function labelFor(path,snaps){
@@ -1141,6 +1141,12 @@ function renderStateSheet(){
     ${o('0','🕐 計票中','W',s.called?'1':'0',`setStateCalled('${a}',false)`)}
     ${o('1','✅ 已確定','Y',s.called?'1':'0',`setStateCalled('${a}',true)`)}
   </div>
+  <div class="lab">是翻盤席次嗎？（已確定才會在前台顯示斜線）</div>
+  <div class="choice c3${w==='N'||nr?' dis':''}">
+    ${o('','否','N',s.flip||'',`setStateFlip('${a}','')`)}
+    ${o('R','原共和黨席次','R',s.flip||'',`setStateFlip('${a}','R')`)}
+    ${o('D','原民主黨席次','D',s.flip||'',`setStateFlip('${a}','D')`)}
+  </div>
   <div class="lab">領先差距 %（選填）</div>
   ${stepper({id:'margin-in',dec:1,step:0.5,value:s.margin??'',off:w==='N'||nr,fn:`d=>stepMargin('${a}',d)`,oninput:`setMargin('${a}',this.value)`})}
   <div class="sh-nav">
@@ -1152,14 +1158,14 @@ function renderStateSheet(){
 const NO_SENATE_2026=['AZ','CA','CT','HI','IN','MD','MO','NV','NY','ND','PA','UT','VT','WA','WI'];
 function setStateNoRace(a,b){
   const s=data.states[a];
-  if(b){s.noRace=true;s.winner=null;s.called=false;s.margin=null}else{delete s.noRace}
+  if(b){s.noRace=true;s.winner=null;s.called=false;s.margin=null;delete s.flip}else{delete s.noRace}
   markDirty();vib();paintTile(a);renderStateSheet();
 }
 function applySenateList(){
   if(!confirm('以下 15 州會標示為「本屆無參議員選舉」，這些州原本填的結果會清除：\n\n'+NO_SENATE_2026.map(a=>STATE_NAMES[a]).join('、')+'\n\n其餘州會改回「有選舉」。確定嗎？'))return;
   STATE_ABBRS.forEach(a=>{
     const s=data.states[a];
-    if(NO_SENATE_2026.includes(a)){s.noRace=true;s.winner=null;s.called=false;s.margin=null}else{delete s.noRace}
+    if(NO_SENATE_2026.includes(a)){s.noRace=true;s.winner=null;s.called=false;s.margin=null;delete s.flip}else{delete s.noRace}
   });
   markDirty();vib();renderStates();toast('已套用，記得按「存檔上線」','ok');
 }
@@ -1167,7 +1173,13 @@ function setStateWinner(a,w){
   const s=data.states[a];
   s.winner=w==='N'?null:w;
   if(w==='N'){s.called=false;s.margin=null}
+  if(w==='N'||s.flip===w)delete s.flip;
   markDirty();vib();paintTile(a);renderStateSheet();
+}
+function setStateFlip(a,f){
+  const s=data.states[a];if(!s.winner)return;
+  if(f&&f!==s.winner)s.flip=f;else delete s.flip;
+  markDirty();vib();renderStateSheet();
 }
 function setStateCalled(a,b){
   const s=data.states[a];if(!s.winner)return;
