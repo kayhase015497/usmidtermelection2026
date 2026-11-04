@@ -71,9 +71,9 @@
   },
   "states": {
     "AL": {
-      "winner": null,
+      "winner": "R",
       "called": false,
-      "margin": null,
+      "margin": 1.8,
       "office": "Senate"
     },
     "AK": {
@@ -90,9 +90,9 @@
       "noRace": true
     },
     "AR": {
-      "winner": null,
+      "winner": "D",
       "called": false,
-      "margin": null,
+      "margin": 7.5,
       "office": "Senate"
     },
     "CA": {
@@ -103,9 +103,9 @@
       "noRace": true
     },
     "CO": {
-      "winner": null,
-      "called": false,
-      "margin": null,
+      "winner": "D",
+      "called": true,
+      "margin": 71.5,
       "office": "Senate"
     },
     "CT": {
@@ -117,20 +117,20 @@
     },
     "DE": {
       "winner": "D",
-      "called": false,
-      "margin": null,
+      "called": true,
+      "margin": 34.4,
       "office": "Senate"
     },
     "FL": {
       "winner": "R",
-      "called": false,
-      "margin": null,
+      "called": true,
+      "margin": 2.8,
       "office": "Senate"
     },
     "GA": {
       "winner": "D",
-      "called": false,
-      "margin": null,
+      "called": true,
+      "margin": 20.6,
       "office": "Senate"
     },
     "HI": {
@@ -148,8 +148,8 @@
     },
     "IL": {
       "winner": "D",
-      "called": false,
-      "margin": null,
+      "called": true,
+      "margin": 30,
       "office": "Senate"
     },
     "IN": {
@@ -160,21 +160,21 @@
       "noRace": true
     },
     "IA": {
-      "winner": null,
+      "winner": "R",
       "called": false,
-      "margin": null,
+      "margin": 3.8,
       "office": "Senate"
     },
     "KS": {
-      "winner": null,
+      "winner": "D",
       "called": false,
-      "margin": null,
+      "margin": 28.1,
       "office": "Senate"
     },
     "KY": {
-      "winner": null,
-      "called": false,
-      "margin": null,
+      "winner": "R",
+      "called": true,
+      "margin": 8,
       "office": "Senate"
     },
     "LA": {
@@ -184,9 +184,9 @@
       "office": "Senate"
     },
     "ME": {
-      "winner": null,
+      "winner": "D",
       "called": false,
-      "margin": null,
+      "margin": 10.4,
       "office": "Senate"
     },
     "MD": {
@@ -198,14 +198,14 @@
     },
     "MA": {
       "winner": "D",
-      "called": false,
-      "margin": null,
+      "called": true,
+      "margin": 41.9,
       "office": "Senate"
     },
     "MI": {
-      "winner": null,
+      "winner": "D",
       "called": false,
-      "margin": null,
+      "margin": 11,
       "office": "Senate"
     },
     "MN": {
@@ -215,9 +215,9 @@
       "office": "Senate"
     },
     "MS": {
-      "winner": null,
+      "winner": "D",
       "called": false,
-      "margin": null,
+      "margin": 6.8,
       "office": "Senate"
     },
     "MO": {
@@ -234,9 +234,9 @@
       "office": "Senate"
     },
     "NE": {
-      "winner": null,
+      "winner": "I",
       "called": false,
-      "margin": null,
+      "margin": 21.5,
       "office": "Senate"
     },
     "NV": {
@@ -248,19 +248,19 @@
     },
     "NH": {
       "winner": "D",
-      "called": false,
-      "margin": null,
+      "called": true,
+      "margin": 11.4,
       "office": "Senate"
     },
     "NJ": {
       "winner": "D",
-      "called": false,
-      "margin": null,
+      "called": true,
+      "margin": 34.5,
       "office": "Senate"
     },
     "NM": {
-      "winner": null,
-      "called": false,
+      "winner": "D",
+      "called": true,
       "margin": null,
       "office": "Senate"
     },
@@ -272,9 +272,9 @@
       "noRace": true
     },
     "NC": {
-      "winner": null,
-      "called": false,
-      "margin": null,
+      "winner": "D",
+      "called": true,
+      "margin": 24.5,
       "office": "Senate"
     },
     "ND": {
@@ -285,15 +285,15 @@
       "noRace": true
     },
     "OH": {
-      "winner": null,
+      "winner": "D",
       "called": false,
-      "margin": null,
+      "margin": 7.7,
       "office": "Senate"
     },
     "OK": {
-      "winner": null,
+      "winner": "R",
       "called": false,
-      "margin": null,
+      "margin": 20.6,
       "office": "Senate"
     },
     "OR": {
@@ -310,33 +310,33 @@
       "noRace": true
     },
     "RI": {
-      "winner": null,
-      "called": false,
-      "margin": null,
+      "winner": "D",
+      "called": true,
+      "margin": 37,
       "office": "Senate"
     },
     "SC": {
       "winner": "D",
       "called": false,
-      "margin": null,
+      "margin": 9,
       "office": "Senate"
     },
     "SD": {
-      "winner": null,
+      "winner": "R",
       "called": false,
-      "margin": null,
+      "margin": 23,
       "office": "Senate"
     },
     "TN": {
-      "winner": null,
+      "winner": "R",
       "called": false,
-      "margin": null,
+      "margin": 12.3,
       "office": "Senate"
     },
     "TX": {
-      "winner": null,
+      "winner": "D",
       "called": false,
-      "margin": null,
+      "margin": 13.4,
       "office": "Senate"
     },
     "UT": {
@@ -355,8 +355,8 @@
     },
     "VA": {
       "winner": "D",
-      "called": false,
-      "margin": null,
+      "called": true,
+      "margin": 19.8,
       "office": "Senate"
     },
     "WA": {
@@ -367,9 +367,9 @@
       "noRace": true
     },
     "WV": {
-      "winner": null,
-      "called": false,
-      "margin": null,
+      "winner": "R",
+      "called": true,
+      "margin": 15,
       "office": "Senate"
     },
     "WI": {
@@ -806,7 +806,7 @@
         "pct": 0,
         "votes": 0
       },
-      "reporting": 33,
+      "reporting": 51,
       "called": false,
       "winner": null,
       "competitive": true
@@ -826,7 +826,7 @@
         "pct": 0,
         "votes": 0
       },
-      "reporting": 23,
+      "reporting": 45,
       "called": false,
       "winner": null,
       "competitive": true
@@ -846,7 +846,7 @@
         "pct": 0,
         "votes": 0
       },
-      "reporting": 5,
+      "reporting": 11,
       "called": false,
       "winner": null,
       "competitive": true
@@ -866,9 +866,9 @@
         "pct": 0,
         "votes": 0
       },
-      "reporting": 50,
-      "called": false,
-      "winner": null,
+      "reporting": 72,
+      "called": true,
+      "winner": "D",
       "competitive": true
     },
     {
@@ -886,9 +886,9 @@
         "pct": 0,
         "votes": 0
       },
-      "reporting": 50,
-      "called": false,
-      "winner": null,
+      "reporting": 76,
+      "called": true,
+      "winner": "D",
       "competitive": true
     },
     {
@@ -906,7 +906,7 @@
         "pct": 0,
         "votes": 0
       },
-      "reporting": 0,
+      "reporting": 8,
       "called": false,
       "winner": null,
       "competitive": true
@@ -966,9 +966,9 @@
         "pct": 0,
         "votes": 0
       },
-      "reporting": 16,
-      "called": false,
-      "winner": null,
+      "reporting": 15,
+      "called": true,
+      "winner": "D",
       "competitive": true
     }
   ]
