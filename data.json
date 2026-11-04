@@ -248,8 +248,8 @@
     },
     "NH": {
       "winner": "D",
-      "called": true,
-      "margin": 11.4,
+      "called": false,
+      "margin": null,
       "office": "Senate"
     },
     "NJ": {
@@ -810,7 +810,7 @@
         "pct": 0,
         "votes": 0
       },
-      "reporting": 51,
+      "reporting": 33,
       "called": false,
       "winner": null,
       "competitive": true
@@ -830,7 +830,7 @@
         "pct": 0,
         "votes": 0
       },
-      "reporting": 45,
+      "reporting": 23,
       "called": false,
       "winner": null,
       "competitive": true
@@ -850,7 +850,7 @@
         "pct": 0,
         "votes": 0
       },
-      "reporting": 11,
+      "reporting": 5,
       "called": false,
       "winner": null,
       "competitive": true
@@ -870,7 +870,7 @@
         "pct": 0,
         "votes": 0
       },
-      "reporting": 72,
+      "reporting": 50,
       "called": true,
       "winner": "D",
       "competitive": true
@@ -890,7 +890,7 @@
         "pct": 0,
         "votes": 0
       },
-      "reporting": 76,
+      "reporting": 50,
       "called": true,
       "winner": "D",
       "competitive": true
@@ -910,7 +910,7 @@
         "pct": 0,
         "votes": 0
       },
-      "reporting": 8,
+      "reporting": 0,
       "called": false,
       "winner": null,
       "competitive": true
@@ -970,9 +970,9 @@
         "pct": 0,
         "votes": 0
       },
-      "reporting": 15,
-      "called": true,
-      "winner": "D",
+      "reporting": 16,
+      "called": false,
+      "winner": null,
       "competitive": true
     }
   ]
