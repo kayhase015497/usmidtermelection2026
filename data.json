@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-11-04T08:13:19-05:00",
+    "lastUpdated": "2026-11-04T09:02:47-05:00",
     "reporting": "已開出 65% 選區",
     "note": "開票進行中",
     "source": "美聯社、各州選務委員會",
@@ -755,6 +755,10 @@
       "text": "最新民調與席次預測｜川普執政下的兩黨勝算",
       "src": "medias/poll2-mvc6awvi.mp4",
       "links": [
+        {
+          "url": "https://www.chinatimes.com/realtimenews/20261104004698-260408?chdtv",
+          "title": "民調：四成選民參與期中選舉的動機為「表達對川普的反對」"
+        },
         {
           "url": "https://www.chinatimes.com/realtimenews/20261104000052-260408?chdtv",
           "title": "美期中選舉》投票前夕選民最關心什麼？民調曝9大主題"
