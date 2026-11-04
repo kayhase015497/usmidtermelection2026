@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-11-04T02:03:37-05:00",
+    "lastUpdated": "2026-11-04T02:09:20-05:00",
     "reporting": "已開出 65% 選區",
     "note": "即將開票",
     "source": "美聯社、各州選務委員會",
@@ -394,14 +394,6 @@
       "src": "medias/Slo3RKCaT88saEDN-muzdc1ss.mp4",
       "links": [
         {
-          "url": "https://www.chinatimes.com/realtimenews/20261104000935-260408",
-          "title": "不斷更新》民主黨拿下參院 美國會兩院全變藍天"
-        },
-        {
-          "url": "https://www.chinatimes.com/realtimenews/20261104002347-260408",
-          "title": "共和黨輸了！川普殘念：願接受選舉結果 罕曝將與民主黨合作"
-        },
-        {
           "url": "https://www.chinatimes.com/realtimenews/20261103001386-260408?chdtv",
           "title": "美期中選舉》民主黨可望贏得參院 藍潮來襲川普選前壓軸演說遭狠嗆"
         },
@@ -488,6 +480,18 @@
         {
           "url": "https://www.chinatimes.com/realtimenews/20261030001030-260408",
           "title": "影》期中選舉逼近 川普連連取消紅州造勢 被追問健康暴怒飆罵"
+        },
+        {
+          "url": "https://www.chinatimes.com/realtimenews/20261104000935-260408",
+          "title": "不斷更新》民主黨拿下參院 美國會兩院全變藍天"
+        },
+        {
+          "url": "https://www.chinatimes.com/realtimenews/20261104002347-260408",
+          "title": "共和黨輸了！川普殘念：願接受選舉結果 罕曝將與民主黨合作"
+        },
+        {
+          "url": "https://www.chinatimes.com/realtimenews/20261104001918-260408",
+          "title": "期中選舉日震撼停援以色列1,313億  川普在打什麼算盤"
         }
       ],
       "page": "p2"
