@@ -80,7 +80,8 @@
       "winner": "D",
       "called": false,
       "margin": 0.3,
-      "office": "Senate"
+      "office": "Senate",
+      "flip": "R"
     },
     "AZ": {
       "winner": null,
@@ -105,7 +106,7 @@
     "CO": {
       "winner": "D",
       "called": true,
-      "margin": 24.6,
+      "margin": 24.9,
       "office": "Senate"
     },
     "CT": {
@@ -143,13 +144,13 @@
     "ID": {
       "winner": "R",
       "called": true,
-      "margin": 22.8,
+      "margin": 23,
       "office": "Senate"
     },
     "IL": {
       "winner": "D",
       "called": true,
-      "margin": 23.5,
+      "margin": 23.6,
       "office": "Senate"
     },
     "IN": {
@@ -169,7 +170,7 @@
     "KS": {
       "winner": "D",
       "called": true,
-      "margin": 4.8,
+      "margin": 5,
       "office": "Senate",
       "flip": "R"
     },
@@ -188,7 +189,7 @@
     "ME": {
       "winner": "D",
       "called": true,
-      "margin": 7.7,
+      "margin": 6.3,
       "office": "Senate",
       "flip": "R"
     },
@@ -202,13 +203,13 @@
     "MA": {
       "winner": "D",
       "called": true,
-      "margin": 32.1,
+      "margin": 31.3,
       "office": "Senate"
     },
     "MI": {
       "winner": "D",
       "called": true,
-      "margin": 6.8,
+      "margin": 7,
       "office": "Senate"
     },
     "MN": {
@@ -220,7 +221,7 @@
     "MS": {
       "winner": "D",
       "called": false,
-      "margin": 0.1,
+      "margin": 0.3,
       "office": "Senate",
       "flip": "R"
     },
@@ -234,13 +235,13 @@
     "MT": {
       "winner": "R",
       "called": true,
-      "margin": 10.1,
+      "margin": 10.6,
       "office": "Senate"
     },
     "NE": {
       "winner": "R",
       "called": true,
-      "margin": 6.6,
+      "margin": 6.4,
       "office": "Senate"
     },
     "NV": {
@@ -253,7 +254,7 @@
     "NH": {
       "winner": "D",
       "called": true,
-      "margin": 14.3,
+      "margin": 13.7,
       "office": "Senate"
     },
     "NJ": {
@@ -299,13 +300,13 @@
     "OK": {
       "winner": "R",
       "called": true,
-      "margin": 18.1,
+      "margin": 17.9,
       "office": "Senate"
     },
     "OR": {
       "winner": "D",
       "called": true,
-      "margin": 16.1,
+      "margin": 17.9,
       "office": "Senate"
     },
     "PA": {
@@ -318,13 +319,13 @@
     "RI": {
       "winner": "D",
       "called": true,
-      "margin": 37.1,
+      "margin": 37.5,
       "office": "Senate"
     },
     "SC": {
       "winner": "D",
       "called": true,
-      "margin": 4.4,
+      "margin": 4.5,
       "office": "Senate",
       "flip": "R"
     },
@@ -364,7 +365,7 @@
     "VA": {
       "winner": "D",
       "called": true,
-      "margin": 22.2,
+      "margin": 22.6,
       "office": "Senate"
     },
     "WA": {
@@ -942,7 +943,7 @@
         "pct": 0,
         "votes": 0
       },
-      "reporting": 99,
+      "reporting": 98,
       "called": true,
       "winner": "D",
       "competitive": true
@@ -962,7 +963,7 @@
         "pct": 0,
         "votes": 0
       },
-      "reporting": 94,
+      "reporting": 99,
       "called": true,
       "winner": "D",
       "competitive": true
@@ -982,7 +983,7 @@
         "pct": 0,
         "votes": 0
       },
-      "reporting": 96,
+      "reporting": 98,
       "called": true,
       "winner": "D",
       "competitive": true
@@ -1042,7 +1043,7 @@
         "pct": 0,
         "votes": 0
       },
-      "reporting": 86,
+      "reporting": 94,
       "called": true,
       "winner": "D",
       "competitive": true
@@ -1062,7 +1063,7 @@
         "pct": 0,
         "votes": 0
       },
-      "reporting": 98,
+      "reporting": 99,
       "called": true,
       "winner": "D",
       "competitive": true
@@ -1082,7 +1083,7 @@
         "pct": 0,
         "votes": 0
       },
-      "reporting": 75,
+      "reporting": 74,
       "called": true,
       "winner": "D",
       "competitive": true
@@ -1102,7 +1103,7 @@
         "pct": 0,
         "votes": 0
       },
-      "reporting": 90,
+      "reporting": 99,
       "called": true,
       "winner": "D",
       "competitive": true
