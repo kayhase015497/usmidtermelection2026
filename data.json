@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-11-07T03:51:33-05:00",
+    "lastUpdated": "2026-11-07T03:54:05-05:00",
     "reporting": "已開出 97% 選區",
     "note": "開票進行中",
     "source": "美聯社、各州選務委員會",
@@ -403,12 +403,24 @@
       "src": "medias/Slo3RKCaT88saEDN-muzdc1ss.mp4",
       "links": [
         {
+          "url": "https://www.chinatimes.com/realtimenews/20261106003951-260408?chdtv",
+          "title": "期中選舉大敗 川普「末日飛機」悄悄起飛 路線受矚目"
+        },
+        {
           "url": "https://www.chinatimes.com/realtimenews/20261106003898-260408?chdtv",
           "title": "美國41項AI資料中心「公投禁令」衝擊一次看"
         },
         {
-          "url": "https://www.chinatimes.com/realtimenews/20261106003951-260408?chdtv",
-          "title": "期中選舉大敗 川普「末日飛機」悄悄起飛 路線受矚目"
+          "url": "https://www.chinatimes.com/realtimenews/20261106002914-260408?chdtv",
+          "title": "民主黨大勝震撼AI熱潮！分析師警告：兩成規劃容量恐遭砍"
+        },
+        {
+          "url": "https://www.chinatimes.com/realtimenews/20261106001889-260408?chdtv",
+          "title": "民主黨拿下國會兩院別太樂 美選民怒曝心聲拉響警報"
+        },
+        {
+          "url": "https://www.chinatimes.com/realtimenews/20261106001671-260408?chdtv",
+          "title": "德州「新建資料中心」不蓋了？準州長開條件嗆馬斯克：照規矩來"
         },
         {
           "url": "https://www.chinatimes.com/realtimenews/20261106001120-260408",
@@ -864,6 +876,10 @@
       "text": "川普期中考全貌｜兩黨目標與對全球影響一次看懂",
       "src": "medias/uejBCcU5syO9PigH-mvc6mjzy.mp4",
       "links": [
+        {
+          "url": "https://www.chinatimes.com/realtimenews/20261106002624-260408?chdtv",
+          "title": "165億打水漂 馬斯克期中選舉豪賭曝影響力現實"
+        },
         {
           "url": "https://www.chinatimes.com/realtimenews/20261106003123-260408?chdtv",
           "title": "貿易反攻戰！民主黨正醞釀收回總統關稅大權 川普恐升級戰火"
