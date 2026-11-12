@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-11-12T03:35:43-05:00",
+    "lastUpdated": "2026-11-12T03:45:28-05:00",
     "reporting": "已開出 97% 選區",
     "note": "開票進行中",
     "source": "美聯社、各州選務委員會",
@@ -79,7 +79,7 @@
     "AK": {
       "winner": "D",
       "called": false,
-      "margin": 0.3,
+      "margin": 1.6,
       "office": "Senate",
       "flip": "R"
     },
@@ -220,8 +220,8 @@
     },
     "MS": {
       "winner": "D",
-      "called": false,
-      "margin": 0.3,
+      "called": true,
+      "margin": 0.5,
       "office": "Senate",
       "flip": "R"
     },
@@ -885,6 +885,10 @@
       "src": "medias/uejBCcU5syO9PigH-mvc6mjzy.mp4",
       "links": [
         {
+          "url": "https://www.chinatimes.com/realtimenews/20261111005068-260408?chdtv",
+          "title": "美資深外交官「中國通」傅立民 解析中東、歐洲局勢"
+        },
+        {
           "url": "https://www.chinatimes.com/realtimenews/20261106002624-260408?chdtv",
           "title": "165億打水漂 馬斯克期中選舉豪賭曝影響力現實"
         },
@@ -1123,7 +1127,7 @@
         "pct": 0,
         "votes": 0
       },
-      "reporting": 74,
+      "reporting": 86,
       "called": true,
       "winner": "D",
       "competitive": true
@@ -1163,7 +1167,7 @@
         "pct": 0,
         "votes": 0
       },
-      "reporting": 97,
+      "reporting": 99,
       "called": true,
       "winner": "D",
       "competitive": true
