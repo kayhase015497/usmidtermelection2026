@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-11-18T09:48:03-05:00",
+    "lastUpdated": "2026-11-18T09:48:27-05:00",
     "reporting": "已開出 97% 選區",
     "note": "開票進行中",
     "source": "美聯社、各州選務委員會",
@@ -78,8 +78,8 @@
     },
     "AK": {
       "winner": "D",
-      "called": false,
-      "margin": 4.1,
+      "called": true,
+      "margin": 4.3,
       "office": "Senate",
       "flip": "R"
     },
